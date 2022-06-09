@@ -1,15 +1,7 @@
-import {
-  All,
-  CacheInterceptor,
-  Controller,
-  Req,
-  Res,
-  UseInterceptors,
-} from "@nestjs/common";
+import { All, Controller, Req, Res } from "@nestjs/common";
 import { RouteConfig as DetailsConfig } from "./routes/details";
 
 @Controller("api")
-// @UseInterceptors(CacheInterceptor)
 export class DetailsController {
   @All(DetailsConfig.path)
   async executeUserDetail(@Req() req, @Res() res) {

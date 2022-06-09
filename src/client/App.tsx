@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HomeLayout from "./layouts/HomeLayout/HomeLayout";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
+import Github from "./components/GitHub/Github";
+import { GlobalStyle } from "./App.styles";
 
 const App = () => {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = useState<any>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get("api/details").then((res) => {
       setData(res.data);
     });
   }, []);
 
   return (
-    <HomeLayout
-      header={<Header />}
-      leftChild={<p>left child</p>}
-      middleChild={<div>{"Github username: " + data?.github?.login}</div>}
-      rightChild={<p>right child</p>}
-    ></HomeLayout>
+    <>
+      <GlobalStyle />
+      <HomeLayout
+        header={<Header />}
+        mainPanel={
+          <Github
+            userName={data?.github?.login}
+            avatarUrl={data?.github?.avatar_url}
+          ></Github>
+        }
+      ></HomeLayout>
+    </>
   );
 };
 

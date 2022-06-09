@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "concurrently -k \"yarn build:client:dev\" \"yarn dev:server\"",
     "prebuild": "rimraf dist",
+    "build": "yarn build:client && yarn build:server",
     "build:client:dev": "webpack --mode development  --config webpack.config.client.js --watch",
     "build:client": "webpack --mode production --config webpack.config.client.js",
     "build:server": "nest build",
     "start:server": "nest start",
     "dev:server": "nest start --watch",
     "debug:server": "nest start --debug --watch",
-    "start:prodserver": "node dist/main"
+    "start:prodserver": "node dist/server/main"
   },
   "devDependencies": {
     "@babel/core": "7.15.5",
