@@ -1,18 +1,20 @@
 import React from "react";
 import GithubWrapper from "./Github.styles";
 
-type GithubProps = {
-  userName: string;
-  avatarUrl: string;
-};
+const Github = ({ githubData }) => {
+  const { login, followers, public_repos } = githubData ?? {};
 
-const Github = ({ userName, avatarUrl }: GithubProps) => {
   return (
     <GithubWrapper>
       <div className="github-block">
-        <p>Github</p>
-        <p>{userName ?? "Username unavailable"}</p>
-        <img width={"30px"} height={"30px"} src={avatarUrl} alt="github" />
+        <p className="row-title">github</p>
+        <p className="column-element">{login ?? "Username unavailable"}</p>
+        <p className="column-element">
+          {followers + " followers" ?? "Followers unavailable"}
+        </p>
+        <p className="column-element">
+          {public_repos + " repos" ?? "Followers unavailable"}
+        </p>
       </div>
     </GithubWrapper>
   );

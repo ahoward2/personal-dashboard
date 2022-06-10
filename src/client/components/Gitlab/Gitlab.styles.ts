@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const GithubWrapper = styled.div`
-  .github-block {
+const GitlabWrapper = styled.div`
+  .gitlab-block {
     padding: 1rem;
     display: flex;
     .row-title {
@@ -21,4 +21,4 @@ const GithubWrapper = styled.div`
   }
 `;
 
-export default GithubWrapper;
+export default GitlabWrapper;

@@ -14,7 +14,7 @@ const cache = {
   },
 };
 
-const useCache = async (req: Request, res: Response) => {
+async function useCache(req: Request, res: Response) {
   if (cache.data.key === null) {
     cache.data.key = req.path;
   }
@@ -29,10 +29,10 @@ const useCache = async (req: Request, res: Response) => {
     cache.startTime = Date.now();
     cache.cacheSetOnce = true;
   } else {
-    logger.log("Value pulled from cache: ");
+    logger.log("Value pulled from cache");
   }
   res.json(cache.data.value);
-};
+}
 
 /**
  * Aggregates fetches from multiple API endpoints about

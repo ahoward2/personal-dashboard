@@ -3,6 +3,7 @@ import axios from "axios";
 import HomeLayout from "./layouts/HomeLayout/HomeLayout";
 import Header from "./components/Header/Header";
 import Github from "./components/GitHub/Github";
+import Gitlab from "./components/Gitlab/Gitlab";
 import { GlobalStyle } from "./App.styles";
 
 const App = () => {
@@ -20,10 +21,10 @@ const App = () => {
       <HomeLayout
         header={<Header />}
         mainPanel={
-          <Github
-            userName={data?.github?.login}
-            avatarUrl={data?.github?.avatar_url}
-          ></Github>
+          <>
+            <Github githubData={data.github}></Github>
+            <Gitlab gitlabData={data.gitlab}></Gitlab>
+          </>
         }
       ></HomeLayout>
     </>
