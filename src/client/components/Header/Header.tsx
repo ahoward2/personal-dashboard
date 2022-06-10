@@ -6,7 +6,7 @@ const Header = () => {
     <HeaderWrapper>
       <header className="header">
         <h3>Austin Howard</h3>
-        <h5>Software Developer</h5>
+        <h6>Software Developer</h6>
       </header>
     </HeaderWrapper>
   );

@@ -47,14 +47,24 @@ async function handler(req: Request, res: Response) {
       return axios.get(`https://api.github.com/users/ahoward2`);
     }
 
+    async function getRepos() {
+      return axios.get(`https://api.github.com/users/ahoward2/repos`);
+    }
+
     async function getGitlabData() {
       return axios.get(`https://gitlab.com/api/v4/users?username=ahoward21`);
     }
 
-    await Promise.all([getGithubData(), getGitlabData()])
+    await Promise.all([getGithubData(), getGitlabData(), getRepos()])
       .then((result) => {
+        let totalStars = 0;
+
+        result[2].data.forEach((repo) => {
+          totalStars += repo.stargazers_count;
+        });
+
         data = {
-          github: result[0].data,
+          github: { ...result[0].data, total_stars: totalStars },
           gitlab: result[1].data,
         };
       })

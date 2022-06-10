@@ -8,7 +8,7 @@ const Gitlab = ({ gitlabData }) => {
     <GitlabWrapper>
       <div className="gitlab-block">
         <p className="row-title">gitlab</p>
-        <p className="column-element">{username ?? "Username unavailable"}</p>
+        <p className="column-element">{username ?? "..."}</p>
       </div>
     </GitlabWrapper>
   );
