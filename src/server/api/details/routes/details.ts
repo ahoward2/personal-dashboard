@@ -60,12 +60,16 @@ async function handler(req: Request, res: Response) {
         let totalStars = 0;
 
         result[2].data.forEach((repo) => {
-          totalStars += repo.stargazers_count;
+          totalStars += repo?.stargazers_count ?? 0;
         });
 
+        const { login, followers, public_repos } = result[0]?.data ?? {};
+
+        const { username } = result[1]?.data ?? {};
+
         data = {
-          github: { ...result[0].data, total_stars: totalStars },
-          gitlab: result[1].data,
+          github: { login, followers, public_repos, total_stars: totalStars },
+          gitlab: { username },
         };
       })
       .catch((error) => {
