@@ -7,7 +7,7 @@ const logger = new Logger("DETAIL_ROUTE");
 const cache = {
   ttl: 86400, // seconds
   startTime: Date.now(),
-  dataSetOnce: false,
+  cacheSetOnce: false,
   data: {
     key: null,
     value: {},
@@ -21,13 +21,13 @@ const useCache = async (req: Request, res: Response) => {
   const timePassed = Date.now() - cache.startTime;
   if (
     Math.floor(timePassed / 1000) >= cache.ttl ||
-    cache.dataSetOnce === false
+    cache.cacheSetOnce === false
   ) {
     logger.log("Set value to cache");
     const data = await handler(req, res);
     cache.data.value = data;
     cache.startTime = Date.now();
-    cache.dataSetOnce = true;
+    cache.cacheSetOnce = true;
   } else {
     logger.log("Value pulled from cache: ");
   }
@@ -51,7 +51,7 @@ async function handler(req: Request, res: Response) {
       return axios.get(`https://gitlab.com/api/v4/users?username=ahoward21`);
     }
 
-    await Promise.all([getGithubData(), getGithubData()])
+    await Promise.all([getGithubData(), getGitlabData()])
       .then((result) => {
         data = {
           github: result[0].data,
