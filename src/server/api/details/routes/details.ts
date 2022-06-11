@@ -120,7 +120,6 @@ async function handler(req: Request, res: Response) {
             total_retweets: totalRetweets,
             total_replies: totalReplies,
           },
-          twatter: result[4].data,
         };
       })
       .catch((error) => {
