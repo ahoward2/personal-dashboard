@@ -2,7 +2,13 @@ import React from "react";
 import TwitterWrapper from "./Twitter.styles";
 
 const Twitter = ({ twitterData }) => {
-  const { username, followers_count } = twitterData ?? {};
+  const {
+    username,
+    followers_count,
+    total_likes,
+    total_retweets,
+    total_replies,
+  } = twitterData ?? {};
 
   return (
     <TwitterWrapper>
@@ -12,6 +18,11 @@ const Twitter = ({ twitterData }) => {
         <p className="column-element">
           {followers_count + " followers" ?? "..."}
         </p>
+        <p className="column-element">{total_likes + " likes" ?? "..."}</p>
+        <p className="column-element">
+          {total_retweets + " retweets" ?? "..."}
+        </p>
+        <p className="column-element">{total_replies + " replies" ?? "..."}</p>
       </div>
     </TwitterWrapper>
   );

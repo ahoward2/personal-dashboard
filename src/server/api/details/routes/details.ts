@@ -67,11 +67,23 @@ async function handler(req: Request, res: Response) {
       );
     }
 
+    async function getTweetsTimeline() {
+      return axios.get(
+        `https://api.twitter.com/2/users/1438466852/tweets?exclude=retweets,replies&tweet.fields=public_metrics&max_results=91`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+          },
+        }
+      );
+    }
+
     await Promise.all([
       getGithubData(),
       getGitlabData(),
       getRepos(),
       getTwitterData(),
+      getTweetsTimeline(),
     ])
       .then((result) => {
         let totalStars = 0;
@@ -88,10 +100,27 @@ async function handler(req: Request, res: Response) {
 
         const { username: twitterUsername } = result[3]?.data?.data ?? {};
 
+        let totalLikes = 0;
+        let totalRetweets = 0;
+        let totalReplies = 0;
+
+        result[4].data.data.forEach((tweet) => {
+          totalLikes += tweet?.public_metrics?.like_count ?? 0;
+          totalRetweets += tweet?.public_metrics?.retweet_count ?? 0;
+          totalReplies += tweet?.public_metrics?.replie_count ?? 0;
+        });
+
         data = {
           github: { login, followers, public_repos, total_stars: totalStars },
           gitlab: { username },
-          twitter: { username: twitterUsername, followers_count },
+          twitter: {
+            username: twitterUsername,
+            followers_count,
+            total_likes: totalLikes,
+            total_retweets: totalRetweets,
+            total_replies: totalReplies,
+          },
+          twatter: result[4].data,
         };
       })
       .catch((error) => {
