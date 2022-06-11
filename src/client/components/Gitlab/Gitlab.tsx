@@ -2,7 +2,7 @@ import React from "react";
 import GitlabWrapper from "./Gitlab.styles";
 
 const Gitlab = ({ gitlabData }) => {
-  const { username } = gitlabData?.[0] ?? {};
+  const { username } = gitlabData ?? {};
 
   return (
     <GitlabWrapper>

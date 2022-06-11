@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { Logger } from "@nestjs/common";
+require("dotenv").config();
 
 const logger = new Logger("DETAIL_ROUTE");
 
@@ -55,7 +56,23 @@ async function handler(req: Request, res: Response) {
       return axios.get(`https://gitlab.com/api/v4/users?username=ahoward21`);
     }
 
-    await Promise.all([getGithubData(), getGitlabData(), getRepos()])
+    async function getTwitterData() {
+      return axios.get(
+        `https://api.twitter.com/2/users/by/username/a_howard8?user.fields=public_metrics`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+          },
+        }
+      );
+    }
+
+    await Promise.all([
+      getGithubData(),
+      getGitlabData(),
+      getRepos(),
+      getTwitterData(),
+    ])
       .then((result) => {
         let totalStars = 0;
 
@@ -65,11 +82,16 @@ async function handler(req: Request, res: Response) {
 
         const { login, followers, public_repos } = result[0]?.data ?? {};
 
-        const { username } = result[1]?.data ?? {};
+        const { username } = result[1]?.data?.[0] ?? {};
+
+        const { followers_count } = result[3]?.data?.data?.public_metrics ?? {};
+
+        const { username: twitterUsername } = result[3]?.data?.data ?? {};
 
         data = {
           github: { login, followers, public_repos, total_stars: totalStars },
           gitlab: { username },
+          twitter: { username: twitterUsername, followers_count },
         };
       })
       .catch((error) => {
