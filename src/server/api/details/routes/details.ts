@@ -6,32 +6,28 @@ require("dotenv").config();
 // Create new NestJS logger
 const logger = new Logger("DETAIL_ROUTE");
 
-export type CacheData = {
-  key: string;
-  value: Object;
-};
-
 export type CacheObject = {
+  key: any;
   ttl: number;
   startTime: number;
   cacheSetOnce: boolean;
-  data: CacheData;
+  data: Object;
 };
 
 // Custom cache object.
-const cache: CacheObject = {
-  // Seconds (1 day).
-  ttl: 5,
+const defaultCacheObject: CacheObject = {
+  key: null,
+  // Seconds (1/2 day).
+  ttl: 43200,
   // Should be refreshed every time the cache entry is set.
   startTime: Date.now(),
   // Boolean for first time cache is set.
   cacheSetOnce: false,
   // Data object for the cached values and their keys.
-  data: {
-    key: null,
-    value: {},
-  },
+  data: {},
 };
+
+const cache: CacheObject[] = [];
 
 /**
  * Cache adapter to use handler function in.
@@ -40,23 +36,42 @@ const cache: CacheObject = {
  * @param res Express response.
  */
 async function useCache(req: Request, res: Response) {
-  if (cache.data.key === null) {
-    cache.data.key = req.path;
-  }
-  const timePassed = Date.now() - cache.startTime;
+  let targetCacheObject;
+
   if (
-    Math.floor(timePassed / 1000) >= cache.ttl ||
-    cache.cacheSetOnce === false
+    cache.length === 0 ||
+    cache.find((cacheobj) => cacheobj.key === req.url) === undefined
   ) {
-    logger.log("Set value to cache");
-    const data = await handler(req, res);
-    cache.data.value = data;
-    cache.startTime = Date.now();
-    cache.cacheSetOnce = true;
+    targetCacheObject = {
+      key: req.url,
+      // Seconds (1/2 day).
+      ttl: 43200,
+      // Should be refreshed every time the cache entry is set.
+      startTime: Date.now(),
+      // Boolean for first time cache is set.
+      cacheSetOnce: false,
+      // Data object for the cached values and their keys.
+      data: {},
+    };
+    logger.log(`Pushing new cache object: ${targetCacheObject.key}`);
+    cache.push(targetCacheObject);
   } else {
-    logger.log("Value pulled from cache");
+    targetCacheObject = cache.find((cacheobj) => cacheobj.key === req.url);
   }
-  res.json(cache.data.value);
+  const timePassed = Date.now() - targetCacheObject.startTime;
+  if (
+    Math.floor(timePassed / 1000) >= targetCacheObject.ttl ||
+    targetCacheObject.cacheSetOnce === false
+  ) {
+    logger.log(`Set value to cache: ${targetCacheObject.key}`);
+    const data = await handler(req, res);
+    targetCacheObject.data = data;
+    targetCacheObject.startTime = Date.now();
+    targetCacheObject.cacheSetOnce = true;
+  } else {
+    logger.log(`Value pulled from cache: ${targetCacheObject.key}`);
+  }
+  res.json(targetCacheObject.data);
 }
 
 /**

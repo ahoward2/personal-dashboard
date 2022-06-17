@@ -26,16 +26,16 @@ const Dashboard = () => {
     }
   }, [github, gitlab, twitter]);
 
-  console.log(github, gitlab, twitter);
-  console.log(data);
-
   return (
     <>
       <GlobalStyle />
       <DashboardLayout
         header={
           <Header
-            headerData={{ name: "Austin Howard", bio: "Software Developer" }}
+            headerData={{
+              name: data?.github?.login,
+              bio: "Software Developer",
+            }}
           />
         }
         mainPanel={

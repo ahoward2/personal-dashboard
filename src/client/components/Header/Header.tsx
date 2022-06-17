@@ -6,8 +6,8 @@ const Header = ({ headerData }) => {
   return (
     <HeaderWrapper>
       <header className="header">
-        <h3>{name}</h3>
-        <h6>{bio}</h6>
+        <h3>{name ? name : "..."}</h3>
+        <h6>{bio ? bio : "..."}</h6>
       </header>
     </HeaderWrapper>
   );
