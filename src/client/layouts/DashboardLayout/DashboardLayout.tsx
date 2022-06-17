@@ -1,21 +1,21 @@
 import React from "react";
-import HomeLayoutWrapper from "./HomeLayout.styles";
+import DashboardWrapper from "./DashboardLayout.styles";
 import { GlobalStyle } from "../../App.styles";
 
-const HomeLayout = ({ header, mainPanel }) => {
+const DashboardLayout = ({ header, mainPanel }) => {
   return (
     <>
       <GlobalStyle />
-      <HomeLayoutWrapper>
+      <DashboardWrapper>
         <div className="home-layout">
           <div>{header}</div>
           <div className="main-content">
             <div className="main-panel">{mainPanel}</div>
           </div>
         </div>
-      </HomeLayoutWrapper>
+      </DashboardWrapper>
     </>
   );
 };
 
-export default HomeLayout;
+export default DashboardLayout;

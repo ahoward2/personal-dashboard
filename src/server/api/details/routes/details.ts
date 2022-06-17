@@ -3,18 +3,42 @@ import { Request, Response } from "express";
 import { Logger } from "@nestjs/common";
 require("dotenv").config();
 
+// Create new NestJS logger
 const logger = new Logger("DETAIL_ROUTE");
 
-const cache = {
-  ttl: 86400, // seconds
+export type CacheData = {
+  key: string;
+  value: Object;
+};
+
+export type CacheObject = {
+  ttl: number;
+  startTime: number;
+  cacheSetOnce: boolean;
+  data: CacheData;
+};
+
+// Custom cache object.
+const cache: CacheObject = {
+  // Seconds (1 day).
+  ttl: 5,
+  // Should be refreshed every time the cache entry is set.
   startTime: Date.now(),
+  // Boolean for first time cache is set.
   cacheSetOnce: false,
+  // Data object for the cached values and their keys.
   data: {
     key: null,
     value: {},
   },
 };
 
+/**
+ * Cache adapter to use handler function in.
+ * Must have reference to a cache object.
+ * @param req Express request.
+ * @param res Express response.
+ */
 async function useCache(req: Request, res: Response) {
   if (cache.data.key === null) {
     cache.data.key = req.path;
@@ -38,27 +62,35 @@ async function useCache(req: Request, res: Response) {
 /**
  * Aggregates fetches from multiple API endpoints about
  * a user's details.
+ *
+ * @param req Express request.
+ * @param res Express response.
  */
 async function handler(req: Request, res: Response) {
   if (req.method === "GET") {
+    const { github, gitlab, twitter } = req.query ?? {
+      github: "ahoward2",
+      gitlab: "ahoward21",
+      twitter: "ahoward_8",
+    };
     // Make Concurrent API calls
     let data = {};
 
     async function getGithubData() {
-      return axios.get(`https://api.github.com/users/ahoward2`);
+      return axios.get(`https://api.github.com/users/${github}`);
     }
 
     async function getRepos() {
-      return axios.get(`https://api.github.com/users/ahoward2/repos`);
+      return axios.get(`https://api.github.com/users/${github}/repos`);
     }
 
     async function getGitlabData() {
-      return axios.get(`https://gitlab.com/api/v4/users?username=ahoward21`);
+      return axios.get(`https://gitlab.com/api/v4/users?username=${gitlab}`);
     }
 
     async function getTwitterData() {
       return axios.get(
-        `https://api.twitter.com/2/users/by/username/a_howard8?user.fields=public_metrics`,
+        `https://api.twitter.com/2/users/by/username/${twitter}?user.fields=public_metrics`,
         {
           headers: {
             Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,

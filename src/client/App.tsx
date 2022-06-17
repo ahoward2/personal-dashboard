@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import HomeLayout from "./layouts/HomeLayout/HomeLayout";
-import Header from "./components/Header/Header";
-import Github from "./components/GitHub/Github";
-import Gitlab from "./components/Gitlab/Gitlab";
-import { GlobalStyle } from "./App.styles";
-import Twitter from "./components/Twitter/Twitter";
+import React from "react";
+
+import {
+  createMemoryHistory,
+  ReactLocation,
+  Router,
+  Outlet,
+} from "@tanstack/react-location";
+import { routes } from "./routes";
+
+import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
+
+// const history = createMemoryHistory();
+const location = new ReactLocation();
 
 const App = () => {
-  const [data, setData] = useState<any>([]);
-
-  useEffect(() => {
-    axios.get("api/details").then((res) => {
-      setData(res.data);
-    });
-  }, []);
-
   return (
-    <>
-      <GlobalStyle />
-      <HomeLayout
-        header={<Header />}
-        mainPanel={
-          <>
-            <Github githubData={data.github}></Github>
-            <Gitlab gitlabData={data.gitlab}></Gitlab>
-            <Twitter twitterData={data.twitter}></Twitter>
-          </>
-        }
-      ></HomeLayout>
-    </>
+    <Router location={location} routes={routes}>
+      <Outlet />
+      <ReactLocationDevtools initialIsOpen={false} />
+    </Router>
   );
 };
 
