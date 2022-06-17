@@ -1,35 +1,25 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import HomeLayout from "./layouts/HomeLayout/HomeLayout";
-import Header from "./components/Header/Header";
-import Github from "./components/GitHub/Github";
-import Gitlab from "./components/Gitlab/Gitlab";
-import { GlobalStyle } from "./App.styles";
-import Twitter from "./components/Twitter/Twitter";
+import React from "react";
+
+import { ReactLocation, Router, Outlet } from "@tanstack/react-location";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { routes } from "./routes";
+
+import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
+
+const location = new ReactLocation();
+
+const queryClient = new QueryClient();
 
 const App = () => {
-  const [data, setData] = useState<any>([]);
-
-  useEffect(() => {
-    axios.get("api/details").then((res) => {
-      setData(res.data);
-    });
-  }, []);
-
   return (
-    <>
-      <GlobalStyle />
-      <HomeLayout
-        header={<Header />}
-        mainPanel={
-          <>
-            <Github githubData={data.github}></Github>
-            <Gitlab gitlabData={data.gitlab}></Gitlab>
-            <Twitter twitterData={data.twitter}></Twitter>
-          </>
-        }
-      ></HomeLayout>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Router location={location} routes={routes}>
+        <Outlet />
+        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactLocationDevtools initialIsOpen={false} /> */}
+      </Router>
+    </QueryClientProvider>
   );
 };
 

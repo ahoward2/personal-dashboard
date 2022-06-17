@@ -13,7 +13,7 @@ const Twitter = ({ twitterData }) => {
   return (
     <TwitterWrapper>
       <div className="twitter-block">
-        <p className="row-title">Twitter</p>
+        <p className="row-title">twitter</p>
         <p className="column-element">{username ?? "..."}</p>
         <p className="column-element">
           {followers_count + " followers" ?? "..."}
