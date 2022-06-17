@@ -91,21 +91,23 @@ async function handler(req: Request, res: Response) {
     // Make Concurrent API calls
     let data = {};
 
-    async function getGithubData() {
-      return axios.get(`https://api.github.com/users/${github}`);
+    async function getGithubData(githubUsername) {
+      return axios.get(`https://api.github.com/users/${githubUsername}`);
     }
 
-    async function getRepos() {
-      return axios.get(`https://api.github.com/users/${github}/repos`);
+    async function getRepos(githubUsername) {
+      return axios.get(`https://api.github.com/users/${githubUsername}/repos`);
     }
 
-    async function getGitlabData() {
-      return axios.get(`https://gitlab.com/api/v4/users?username=${gitlab}`);
-    }
-
-    async function getTwitterData() {
+    async function getGitlabData(gitlabUsername) {
       return axios.get(
-        `https://api.twitter.com/2/users/by/username/${twitter}?user.fields=public_metrics`,
+        `https://gitlab.com/api/v4/users?username=${gitlabUsername}`
+      );
+    }
+
+    async function getTwitterData(twitterUserName) {
+      return axios.get(
+        `https://api.twitter.com/2/users/by/username/${twitterUserName}?user.fields=public_metrics`,
         {
           headers: {
             Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
@@ -114,23 +116,40 @@ async function handler(req: Request, res: Response) {
       );
     }
 
-    async function getTweetsTimeline() {
+    async function getTweetsTimeline(twitterId) {
       return axios.get(
-        `https://api.twitter.com/2/users/1438466852/tweets?exclude=retweets,replies&tweet.fields=public_metrics&max_results=91`,
+        `https://api.twitter.com/2/users/${twitterId}/tweets?exclude=retweets,replies&tweet.fields=public_metrics&max_results=91`,
         {
           headers: {
             Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
           },
         }
       );
+    }
+
+    async function getAllTwitterData(twitterUsername) {
+      let data;
+      try {
+        const twitterDataRes = await getTwitterData(twitterUsername);
+        const twitterTimelineRes = await getTweetsTimeline(
+          twitterDataRes.data.data.id
+        );
+        data = {
+          normalData: twitterDataRes.data,
+          timelineData: twitterTimelineRes.data,
+        };
+      } catch (error) {
+        console.error(error);
+      }
+
+      return data;
     }
 
     await Promise.all([
-      getGithubData(),
-      getGitlabData(),
-      getRepos(),
-      getTwitterData(),
-      getTweetsTimeline(),
+      getGithubData(github),
+      getGitlabData(gitlab),
+      getRepos(github),
+      getAllTwitterData(twitter),
     ])
       .then((result) => {
         let totalStars = 0;
@@ -143,15 +162,16 @@ async function handler(req: Request, res: Response) {
 
         const { username } = result[1]?.data?.[0] ?? {};
 
-        const { followers_count } = result[3]?.data?.data?.public_metrics ?? {};
+        const { followers_count } =
+          result[3]?.normalData?.data?.public_metrics ?? {};
 
-        const { username: twitterUsername } = result[3]?.data?.data ?? {};
+        const { username: twitterUsername } = result[3]?.normalData?.data ?? {};
 
         let totalLikes = 0;
         let totalRetweets = 0;
         let totalReplies = 0;
 
-        result[4].data.data.forEach((tweet) => {
+        result[3]?.timelineData?.data?.forEach((tweet) => {
           totalLikes += tweet?.public_metrics?.like_count ?? 0;
           totalRetweets += tweet?.public_metrics?.retweet_count ?? 0;
           totalReplies += tweet?.public_metrics?.replie_count ?? 0;

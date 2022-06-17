@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import HomeLayout from "../layouts/HomeLayout/HomeLayout";
 import Header from "../components/Header/Header";
+import { SearchForm } from "../components/SearchForm/SearchForm";
 
 const Home = () => {
   return (
@@ -8,12 +9,15 @@ const Home = () => {
       <HomeLayout
         header={
           <Header
-            headerData={{ name: "Austin Howard", bio: "Software Developer" }}
+            headerData={{
+              name: "Dashboard Composer",
+              bio: "Search your accounts",
+            }}
           />
         }
         mainPanel={
           <>
-            <div>home page</div>
+            <SearchForm></SearchForm>
           </>
         }
       ></HomeLayout>
