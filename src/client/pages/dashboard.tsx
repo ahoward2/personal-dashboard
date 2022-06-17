@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import Header from "../components/Header/Header";
@@ -8,44 +8,51 @@ import Gitlab from "../components/Gitlab/Gitlab";
 import { GlobalStyle } from "../App.styles";
 import Twitter from "../components/Twitter/Twitter";
 import { useSearch } from "@tanstack/react-location";
+import { useQuery } from "react-query";
 
 const Dashboard = () => {
-  const [data, setData] = useState([]);
   const { github, gitlab, twitter } = useSearch();
 
-  useEffect(() => {
-    async function getDetails() {
-      await axios
-        .get(`api/details?github=${github}&gitlab=${gitlab}&twitter=${twitter}`)
-        .then((res) => {
-          setData(res.data);
-        });
+  const { data, isLoading } = useQuery(
+    ["details", github, gitlab, twitter],
+    () => getDetails(github, gitlab, twitter),
+    {
+      staleTime: 10000 * 1000,
+      enabled:
+        github !== undefined && gitlab !== undefined && twitter !== undefined,
     }
-    if (github && gitlab && twitter) {
-      getDetails();
-    }
-  }, [github, gitlab, twitter]);
+  );
+
+  async function getDetails(gh, gl, tw) {
+    return await axios.get(
+      `api/details?github=${gh}&gitlab=${gl}&twitter=${tw}`
+    );
+  }
 
   return (
     <>
       <GlobalStyle />
-      <DashboardLayout
-        header={
-          <Header
-            headerData={{
-              name: data?.github?.login,
-              bio: "Software Developer",
-            }}
-          />
-        }
-        mainPanel={
-          <>
-            <Github githubData={data.github}></Github>
-            <Gitlab gitlabData={data.gitlab}></Gitlab>
-            <Twitter twitterData={data.twitter}></Twitter>
-          </>
-        }
-      ></DashboardLayout>
+      {data && !isLoading ? (
+        <DashboardLayout
+          header={
+            <Header
+              headerData={{
+                name: data?.data?.github?.login,
+                bio: "Software Developer",
+              }}
+            />
+          }
+          mainPanel={
+            <>
+              <Github githubData={data.data.github}></Github>
+              <Gitlab gitlabData={data.data.gitlab}></Gitlab>
+              <Twitter twitterData={data.data.twitter}></Twitter>
+            </>
+          }
+        ></DashboardLayout>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

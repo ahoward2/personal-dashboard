@@ -1,24 +1,25 @@
 import React from "react";
 
-import {
-  createMemoryHistory,
-  ReactLocation,
-  Router,
-  Outlet,
-} from "@tanstack/react-location";
+import { ReactLocation, Router, Outlet } from "@tanstack/react-location";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { routes } from "./routes";
 
+import { ReactQueryDevtools } from "react-query/devtools";
 import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
 
-// const history = createMemoryHistory();
 const location = new ReactLocation();
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Router location={location} routes={routes}>
-      <Outlet />
-      <ReactLocationDevtools initialIsOpen={false} />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router location={location} routes={routes}>
+        <Outlet />
+        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactLocationDevtools initialIsOpen={false} /> */}
+      </Router>
+    </QueryClientProvider>
   );
 };
 
