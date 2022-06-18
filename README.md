@@ -21,7 +21,7 @@
 
 - User interface built with [React](https://reactjs.org/).
   - Custom Webpack configuration with [esbuild-loader](https://github.com/privatenumber/esbuild-loader) for ⚡️.
-    - Suspense boundary on pages for small main bundle (could load pages from remote locations - module federation 😉).
+    - Suspense boundary on pages for tiny main bundle (could load pages from remote locations - module federation 😉).
 - Client routing with [React Location](https://react-location.tanstack.com/).
   - All data requirements handled at the route level to decouple initiating data fetching from component rendering.
 - Client queries and caching with [React Query](https://react-query.tanstack.com/).

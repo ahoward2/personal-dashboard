@@ -29,7 +29,7 @@ const App = () => {
             element: async () => (
               <Suspense
                 fallback={
-                  <Loading /> /* Make this a <Navigate to='/failure'/> */
+                  <Loading /> /* Loads so fast making this is a little janky */
                 }
               >
                 <Home></Home>
@@ -41,7 +41,7 @@ const App = () => {
             element: async () => (
               <Suspense
                 fallback={
-                  <Loading /> /* Make this a <Navigate to='/failure'/> */
+                  <Loading /> /* Loads so fast making this is a little janky */
                 }
               >
                 <Dashboard></Dashboard>
