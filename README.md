@@ -1,7 +1,7 @@
 ![homepage screenshot](public/home.png)
 ![dashboard screenshot](public/dashboard.png)
 
-# My Personal Dashboard
+# Composable Personal Dashboard
 
 > Composable dashboard application displaying information about a variety of user accounts. Aggregate data on the Node server from vendor API's and fit the REST API to the frontend client. The Node server also serves the client.
 
