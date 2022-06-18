@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   ReactLocation,
   Router,
@@ -8,27 +8,45 @@ import {
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
-import Home from "./pages/home";
-import Dashboard from "./pages/dashboard";
 import { getDetails } from "./lib/GetDetails";
+import { GlobalStyle } from "./App.styles";
+import Loading from "./components/Loading/Loading";
+const Home = React.lazy(() => import("./pages/home"));
+const Dashboard = React.lazy(() => import("./pages/dashboard"));
 
 const location = new ReactLocation();
-
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
       <Router
         location={location}
         routes={[
           {
             path: "/",
-            element: <Home />,
+            element: async () => (
+              <Suspense
+                fallback={
+                  <Loading /> /* Make this a <Navigate to='/failure'/> */
+                }
+              >
+                <Home></Home>
+              </Suspense>
+            ),
           },
           {
             path: "dashboard",
-            element: <Dashboard />,
+            element: async () => (
+              <Suspense
+                fallback={
+                  <Loading /> /* Make this a <Navigate to='/failure'/> */
+                }
+              >
+                <Dashboard></Dashboard>
+              </Suspense>
+            ),
             loader: ({ search: { github, gitlab, twitter } }) =>
               queryClient.getQueryData(["details", github, gitlab, twitter]) ??
               queryClient.fetchQuery(

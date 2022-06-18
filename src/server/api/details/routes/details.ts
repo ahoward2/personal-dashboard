@@ -31,7 +31,7 @@ const cache: CacheObject[] = [];
 
 /**
  * Cache adapter to use handler function in.
- * Must have reference to a cache object.
+ * Must have reference to a cache array.
  * @param req Express request.
  * @param res Express response.
  */

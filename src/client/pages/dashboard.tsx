@@ -5,7 +5,6 @@ import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import Header from "../components/Header/Header";
 import Github from "../components/GitHub/Github";
 import Gitlab from "../components/Gitlab/Gitlab";
-import { GlobalStyle } from "../App.styles";
 import Twitter from "../components/Twitter/Twitter";
 import { useMatch } from "@tanstack/react-location";
 
@@ -14,13 +13,11 @@ const Dashboard = () => {
     data: {
       data: { github, gitlab, twitter },
     },
-    isLoading,
   } = useMatch();
 
   return (
     <>
-      <GlobalStyle />
-      {github && gitlab && twitter && !isLoading ? (
+      {github && gitlab && twitter ? (
         <DashboardLayout
           header={
             <Header
