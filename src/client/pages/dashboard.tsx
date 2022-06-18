@@ -7,46 +7,34 @@ import Github from "../components/GitHub/Github";
 import Gitlab from "../components/Gitlab/Gitlab";
 import { GlobalStyle } from "../App.styles";
 import Twitter from "../components/Twitter/Twitter";
-import { useSearch } from "@tanstack/react-location";
-import { useQuery } from "react-query";
+import { useMatch } from "@tanstack/react-location";
 
 const Dashboard = () => {
-  const { github, gitlab, twitter } = useSearch();
-
-  const { data, isLoading } = useQuery(
-    ["details", github, gitlab, twitter],
-    () => getDetails(github, gitlab, twitter),
-    {
-      staleTime: 10000 * 1000,
-      enabled:
-        github !== undefined && gitlab !== undefined && twitter !== undefined,
-    }
-  );
-
-  async function getDetails(gh, gl, tw) {
-    return await axios.get(
-      `api/details?github=${gh}&gitlab=${gl}&twitter=${tw}`
-    );
-  }
+  const {
+    data: {
+      data: { github, gitlab, twitter },
+    },
+    isLoading,
+  } = useMatch();
 
   return (
     <>
       <GlobalStyle />
-      {data && !isLoading ? (
+      {github && gitlab && twitter && !isLoading ? (
         <DashboardLayout
           header={
             <Header
               headerData={{
-                name: data?.data?.github?.login,
+                name: github?.login,
                 bio: "Software Developer",
               }}
             />
           }
           mainPanel={
             <>
-              <Github githubData={data.data.github}></Github>
-              <Gitlab gitlabData={data.data.gitlab}></Gitlab>
-              <Twitter twitterData={data.data.twitter}></Twitter>
+              <Github githubData={github}></Github>
+              <Gitlab gitlabData={gitlab}></Gitlab>
+              <Twitter twitterData={twitter}></Twitter>
             </>
           }
         ></DashboardLayout>
