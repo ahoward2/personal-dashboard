@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import {
   ReactLocation,
@@ -6,20 +5,16 @@ import {
   Outlet,
   Navigate,
 } from "@tanstack/react-location";
-import { QueryClientProvider, QueryClient, useQuery } from "react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
 import Home from "./pages/home";
-import axios from "axios";
 import Dashboard from "./pages/dashboard";
+import { getDetails } from "./lib/GetDetails";
 
 const location = new ReactLocation();
 
 const queryClient = new QueryClient();
-
-async function getDetails(gh, gl, tw) {
-  return await axios.get(`api/details?github=${gh}&gitlab=${gl}&twitter=${tw}`);
-}
 
 const App = () => {
   return (
@@ -29,7 +24,6 @@ const App = () => {
         routes={[
           {
             path: "/",
-            exact: true,
             element: <Home />,
           },
           {
