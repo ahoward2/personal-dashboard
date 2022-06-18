@@ -993,6 +993,13 @@
   dependencies:
     "@babel/runtime" "^7.16.7"
 
+"@tanstack/react-location-simple-cache@^3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-location-simple-cache/-/react-location-simple-cache-3.4.4.tgz#360fdd471d99a2bf4bd6fa70131ea54c518fee66"
+  integrity sha512-MbIy4Mfzt4m5PYcSrDc62Seynf9v9rkY3EKtN81/8GidXoQZy5tT4fnJNmD+WcL5DSrondmh7hUDYtzUpVgeDA==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+
 "@tanstack/react-location@^3.7.4":
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/@tanstack/react-location/-/react-location-3.7.4.tgz#0125ba5685805d232429b8df70d20cb6c2a56cec"
