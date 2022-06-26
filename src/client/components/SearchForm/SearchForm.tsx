@@ -10,9 +10,23 @@ const SearchForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    let navigateString = `/dashboard`;
+
+    if (github !== "") {
+      navigateString += `?github=${github}`;
+    }
+
+    if (gitlab !== "") {
+      navigateString += `&gitlab=${gitlab}`;
+    }
+
+    if (twitter !== "") {
+      navigateString += `&twitter=${twitter}`;
+    }
+
     e.preventDefault();
     navigate({
-      to: `/dashboard?github=${github}&gitlab=${gitlab}&twitter=${twitter}`,
+      to: navigateString,
     });
   };
 

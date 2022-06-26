@@ -14,19 +14,6 @@ export type CacheObject = {
   data: Object;
 };
 
-// Custom cache object.
-const defaultCacheObject: CacheObject = {
-  key: null,
-  // Seconds (1/2 day).
-  ttl: 43200,
-  // Should be refreshed every time the cache entry is set.
-  startTime: Date.now(),
-  // Boolean for first time cache is set.
-  cacheSetOnce: false,
-  // Data object for the cached values and their keys.
-  data: {},
-};
-
 const cache: CacheObject[] = [];
 
 /**
@@ -145,48 +132,111 @@ async function handler(req: Request, res: Response) {
       return data;
     }
 
-    await Promise.all([
-      getGithubData(github),
-      getGitlabData(gitlab),
-      getRepos(github),
-      getAllTwitterData(twitter),
-    ])
+    /**
+     * A function to construct an array of calls
+     * for Promise.all or Promise.allSettled. If user only provides
+     * some of the account options and not all we need to construct an array
+     * that supports any number of accounts.
+     */
+    async function constructCallArray({
+      github,
+      gitlab,
+      twitter,
+    }: {
+      github?: any;
+      gitlab?: any;
+      twitter?: any;
+    }) {
+      const callArray: Promise<any>[] = [];
+      try {
+        if (github) {
+          callArray.push(getGithubData(github));
+          callArray.push(getRepos(github));
+        } else {
+          // Use placeholder promises to keep call array length
+          // for indexing
+          callArray.push(placeHolderPromise());
+          callArray.push(placeHolderPromise());
+        }
+        if (gitlab) {
+          callArray.push(getGitlabData(gitlab));
+        } else {
+          callArray.push(placeHolderPromise());
+        }
+        if (twitter) {
+          callArray.push(getAllTwitterData(twitter));
+        } else {
+          callArray.push(placeHolderPromise());
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      return callArray;
+    }
+
+    async function placeHolderPromise() {
+      return { empty: true };
+    }
+
+    const callArray = await constructCallArray({ github, gitlab, twitter });
+
+    await Promise.all(callArray)
       .then((result) => {
-        let totalStars = 0;
-
-        result[2].data.forEach((repo) => {
-          totalStars += repo?.stargazers_count ?? 0;
-        });
-
+        // ======= Construct Github Response ======= //
         const { login, followers, public_repos } = result[0]?.data ?? {};
+        let githubResObject = { login, followers, public_repos };
 
-        const { username } = result[1]?.data?.[0] ?? {};
+        if (result[1]?.empty) {
+          githubResObject["empty"] = true;
+        } else {
+          let totalStars = 0;
+          result[1]?.data?.forEach((repo) => {
+            totalStars += repo?.stargazers_count ?? 0;
+          });
+          githubResObject["total_stars"] = totalStars;
+          githubResObject["empty"] = false;
+        }
 
+        // ======= Construct Gitlab Response ======= //
+        const { username } = result[2]?.data?.[0] ?? {};
+        let gitlabResObject = { username };
+
+        if (result[2]?.empty) {
+          gitlabResObject["empty"] = true;
+        } else {
+          gitlabResObject["empty"] = false;
+        }
+
+        // ======= Construct Twitter Response ======= //
         const { followers_count } =
           result[3]?.normalData?.data?.public_metrics ?? {};
 
         const { username: twitterUsername } = result[3]?.normalData?.data ?? {};
 
-        let totalLikes = 0;
-        let totalRetweets = 0;
-        let totalReplies = 0;
+        let twitterResObject = { username: twitterUsername, followers_count };
 
-        result[3]?.timelineData?.data?.forEach((tweet) => {
-          totalLikes += tweet?.public_metrics?.like_count ?? 0;
-          totalRetweets += tweet?.public_metrics?.retweet_count ?? 0;
-          totalReplies += tweet?.public_metrics?.replie_count ?? 0;
-        });
+        if (result[3]?.empty) {
+          twitterResObject["empty"] = true;
+        } else {
+          let totalLikes;
+          let totalRetweets;
+          let totalReplies;
+
+          result[3]?.timelineData?.data?.forEach((tweet) => {
+            totalLikes += tweet?.public_metrics?.like_count ?? 0;
+            totalRetweets += tweet?.public_metrics?.retweet_count ?? 0;
+            totalReplies += tweet?.public_metrics?.replie_count ?? 0;
+          });
+          twitterResObject["total_likes"] = totalLikes;
+          twitterResObject["total_retweets"] = totalRetweets;
+          twitterResObject["total_replies"] = totalReplies;
+          twitterResObject["empty"] = false;
+        }
 
         data = {
-          github: { login, followers, public_repos, total_stars: totalStars },
-          gitlab: { username },
-          twitter: {
-            username: twitterUsername,
-            followers_count,
-            total_likes: totalLikes,
-            total_retweets: totalRetweets,
-            total_replies: totalReplies,
-          },
+          github: githubResObject,
+          gitlab: gitlabResObject,
+          twitter: twitterResObject,
         };
       })
       .catch((error) => {
