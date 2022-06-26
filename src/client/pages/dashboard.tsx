@@ -22,8 +22,8 @@ const Dashboard = () => {
           header={
             <Header
               headerData={{
-                name: github?.login,
-                bio: "Software Developer",
+                name: "Dashboard Composer",
+                bio: "Your Search",
               }}
             />
           }

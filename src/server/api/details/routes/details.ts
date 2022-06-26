@@ -218,9 +218,9 @@ async function handler(req: Request, res: Response) {
         if (result[3]?.empty) {
           twitterResObject["empty"] = true;
         } else {
-          let totalLikes;
-          let totalRetweets;
-          let totalReplies;
+          let totalLikes = 0;
+          let totalRetweets = 0;
+          let totalReplies = 0;
 
           result[3]?.timelineData?.data?.forEach((tweet) => {
             totalLikes += tweet?.public_metrics?.like_count ?? 0;

@@ -6,9 +6,6 @@ const LoadingWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    h1 {
-      color: lime;
-    }
   }
 `;
 
