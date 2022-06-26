@@ -29,9 +29,15 @@ const Dashboard = () => {
           }
           mainPanel={
             <>
-              <Github githubData={github}></Github>
-              <Gitlab gitlabData={gitlab}></Gitlab>
-              <Twitter twitterData={twitter}></Twitter>
+              {github && github?.empty === false && (
+                <Github githubData={github}></Github>
+              )}
+              {gitlab && gitlab?.empty === false && (
+                <Gitlab gitlabData={gitlab}></Gitlab>
+              )}
+              {twitter && twitter?.empty === false && (
+                <Twitter twitterData={twitter}></Twitter>
+              )}
             </>
           }
         ></DashboardLayout>

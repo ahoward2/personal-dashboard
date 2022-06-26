@@ -51,7 +51,7 @@ const App = () => {
               queryClient.getQueryData(["details", github, gitlab, twitter]) ??
               queryClient.fetchQuery(
                 ["details", github, gitlab, twitter],
-                () => getDetails(github, gitlab, twitter),
+                () => getDetails({ github, gitlab, twitter }),
                 { staleTime: 43200 * 1000 }
               ),
           },
