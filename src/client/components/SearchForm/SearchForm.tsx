@@ -35,35 +35,35 @@ const SearchForm = () => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <div className="flex flex-col px-2">
-        <label className="text-green-500">Github</label>
+        <label className="text-green-700 dark:text-green-500">Github</label>
         <input
           type="text"
           name="github"
-          className="border-1 appearance-none border border-green-500 bg-black text-green-500 focus:border-green-500"
+          className="border-1 appearance-none border border-green-700 bg-white text-green-700 focus:border-green-500 dark:border-green-500 dark:bg-black dark:text-green-500"
           onChange={(e) => setGithub(e.target.value)}
         ></input>
       </div>
       <div className="flex flex-col px-2">
-        <label className="text-green-500">Gitlab</label>
+        <label className="text-green-700 dark:text-green-500">Gitlab</label>
         <input
           type="text"
           name="gitlab"
-          className="border-1 appearance-none border border-green-500 bg-black text-green-500 focus:border-green-500"
+          className="border-1 appearance-none border border-green-700 bg-white text-green-700 focus:border-green-500 dark:border-green-500 dark:bg-black dark:text-green-500"
           onChange={(e) => setGitlab(e.target.value)}
         ></input>
       </div>
       <div className="flex flex-col px-2">
-        <label className="text-green-500">Twitter</label>
+        <label className="text-green-700 dark:text-green-500">Twitter</label>
         <input
           type="text"
           name="twitter"
-          className="border-1 appearance-none border border-green-500 bg-black text-green-500 focus:border-green-500"
+          className="border-1 appearance-none border border-green-700 bg-white text-green-700 focus:border-green-500 dark:border-green-500 dark:bg-black dark:text-green-500"
           onChange={(e) => setTwitter(e.target.value)}
         ></input>
       </div>
       <button
         type="submit"
-        className="border-1 mx-2 mt-4 border border-green-500 bg-black px-4 py-2 text-green-500 md:mt-0 md:ml-2 md:self-end"
+        className="border-1 mx-2 mt-4 border border-green-700 bg-white px-4 py-2 text-green-700 dark:border-green-500 dark:bg-black dark:text-green-500 dark:text-green-500 md:mt-0 md:ml-2 md:self-end"
       >
         Search
       </button>

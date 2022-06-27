@@ -5,7 +5,7 @@ import { SearchForm } from "../components/SearchForm/SearchForm";
 
 const Home = () => {
   return (
-    <>
+    <div className="bg-white dark:bg-black">
       <HomeLayout
         header={
           <Header
@@ -21,7 +21,7 @@ const Home = () => {
           </>
         }
       ></HomeLayout>
-    </>
+    </div>
   );
 };
 

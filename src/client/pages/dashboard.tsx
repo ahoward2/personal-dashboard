@@ -16,7 +16,7 @@ const Dashboard = () => {
   } = useMatch();
 
   return (
-    <>
+    <div className="bg-white dark:bg-black">
       {github && gitlab && twitter ? (
         <DashboardLayout
           header={
@@ -44,7 +44,7 @@ const Dashboard = () => {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 };
 

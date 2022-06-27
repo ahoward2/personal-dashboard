@@ -1,6 +1,3 @@
-![homepage screenshot](public/home.png)
-![dashboard screenshot](public/dashboard.png)
-
 # Composable Personal Dashboard
 
 > Composable dashboard application displaying information about a variety of user accounts. Aggregate data on the Node server from vendor API's and fit the REST API to the frontend client. The Node server also serves the client.
@@ -28,3 +25,11 @@
   - Caching handled at the route level.
 - Terminal inspired design.
   - Styled with [tailwindcss](https://tailwindcss.com/) because it's awesome and super easy to be fast with.
+  - Light & dark modes.
+
+### Screenshots
+
+![homepage dark screenshot](public/home-dark.png)
+![homepage light screenshot](public/home-light.png)
+![dashboard dark screenshot](public/dashboard-dark.png)
+![dashboard light screenshot](public/dashboard-light.png)

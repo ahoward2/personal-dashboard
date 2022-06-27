@@ -6,7 +6,7 @@ module.exports = {
     "./src/client/pages/**/*.{js,ts,jsx,tsx}",
     "./src/client/components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
       sm: "480px",
@@ -18,6 +18,7 @@ module.exports = {
       gray: colors.gray,
       blue: colors.sky,
       red: colors.rose,
+      cyan: colors.cyan,
       pink: colors.fuchsia,
       purple: colors.purple,
       white: colors.white,

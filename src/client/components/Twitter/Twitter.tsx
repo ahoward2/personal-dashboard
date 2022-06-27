@@ -10,17 +10,21 @@ const Twitter = ({ twitterData }) => {
   } = twitterData ?? {};
 
   return (
-    <div className="flex px-2 my-4">
-      <p className="text-green-500 ml-2">twitter</p>
-      <p className="text-yellow-300 mx-2">{username ?? "..."}</p>
-      <p className="text-yellow-300 mx-2">
+    <div className="my-4 flex px-2">
+      <p className="ml-2 text-green-700 dark:text-green-500">twitter</p>
+      <p className="mx-2 text-cyan-700 dark:text-yellow-300">
+        {username ?? "..."}
+      </p>
+      <p className="mx-2 text-cyan-700 dark:text-yellow-300">
         {followers_count + " followers" ?? "..."}
       </p>
-      <p className="text-yellow-300 mx-2">{total_likes + " likes" ?? "..."}</p>
-      <p className="text-yellow-300 mx-2">
+      <p className="mx-2 text-cyan-700 dark:text-yellow-300">
+        {total_likes + " likes" ?? "..."}
+      </p>
+      <p className="mx-2 text-cyan-700 dark:text-yellow-300">
         {total_retweets + " retweets" ?? "..."}
       </p>
-      <p className="text-yellow-300 mx-2">
+      <p className="mx-2 text-cyan-700 dark:text-yellow-300">
         {total_replies + " replies" ?? "..."}
       </p>
     </div>
