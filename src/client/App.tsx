@@ -9,7 +9,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ReactLocationDevtools } from "@tanstack/react-location-devtools";
 import { getDetails } from "./lib/GetDetails";
-import { GlobalStyle } from "./App.styles";
 import Loading from "./components/Loading/Loading";
 const Home = React.lazy(() => import("./pages/home"));
 const Dashboard = React.lazy(() => import("./pages/dashboard"));
@@ -20,7 +19,6 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
       <Router
         location={location}
         routes={[

@@ -1,5 +1,4 @@
 import React from "react";
-import TwitterWrapper from "./Twitter.styles";
 
 const Twitter = ({ twitterData }) => {
   const {
@@ -11,20 +10,20 @@ const Twitter = ({ twitterData }) => {
   } = twitterData ?? {};
 
   return (
-    <TwitterWrapper>
-      <div className="twitter-block">
-        <p className="row-title">twitter</p>
-        <p className="column-element">{username ?? "..."}</p>
-        <p className="column-element">
-          {followers_count + " followers" ?? "..."}
-        </p>
-        <p className="column-element">{total_likes + " likes" ?? "..."}</p>
-        <p className="column-element">
-          {total_retweets + " retweets" ?? "..."}
-        </p>
-        <p className="column-element">{total_replies + " replies" ?? "..."}</p>
-      </div>
-    </TwitterWrapper>
+    <div className="flex px-2 my-4">
+      <p className="text-green-500 ml-2">twitter</p>
+      <p className="text-yellow-300 mx-2">{username ?? "..."}</p>
+      <p className="text-yellow-300 mx-2">
+        {followers_count + " followers" ?? "..."}
+      </p>
+      <p className="text-yellow-300 mx-2">{total_likes + " likes" ?? "..."}</p>
+      <p className="text-yellow-300 mx-2">
+        {total_retweets + " retweets" ?? "..."}
+      </p>
+      <p className="text-yellow-300 mx-2">
+        {total_replies + " replies" ?? "..."}
+      </p>
+    </div>
   );
 };
 

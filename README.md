@@ -27,4 +27,4 @@
 - Client queries and caching with [React Query](https://react-query.tanstack.com/).
   - Caching handled at the route level.
 - Terminal inspired design.
-  - Styled with [styled-components](https://styled-components.com/) (tailwind css would probably be cooler).
+  - Styled with [tailwindcss](https://tailwindcss.com/) because it's awesome and super easy to be fast with.

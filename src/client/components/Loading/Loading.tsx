@@ -1,12 +1,7 @@
 import React from "react";
-import LoadingWrapper from "./Loading.styles";
 
 const Loading = () => {
-  return (
-    <LoadingWrapper>
-      <div className="loading"></div>
-    </LoadingWrapper>
-  );
+  return <div className="flex h-screen w-screen bg-black"></div>;
 };
 
 export default Loading;

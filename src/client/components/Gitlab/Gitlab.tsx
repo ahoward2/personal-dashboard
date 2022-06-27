@@ -1,16 +1,13 @@
 import React from "react";
-import GitlabWrapper from "./Gitlab.styles";
 
 const Gitlab = ({ gitlabData }) => {
   const { username } = gitlabData ?? {};
 
   return (
-    <GitlabWrapper>
-      <div className="gitlab-block">
-        <p className="row-title">gitlab</p>
-        <p className="column-element">{username ?? "..."}</p>
-      </div>
-    </GitlabWrapper>
+    <div className="my-4 flex px-2">
+      <p className="ml-2 text-green-500">gitlab</p>
+      <p className="mx-2 text-yellow-300">{username ?? "..."}</p>
+    </div>
   );
 };
 
