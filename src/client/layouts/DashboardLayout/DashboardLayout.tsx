@@ -6,7 +6,7 @@ const DashboardLayout = ({ header, mainPanel }) => {
       <div className="h-screen w-screen">
         <div>{header}</div>
         <div className="flex">
-          <div className="">{mainPanel}</div>
+          <div>{mainPanel}</div>
         </div>
       </div>
     </>

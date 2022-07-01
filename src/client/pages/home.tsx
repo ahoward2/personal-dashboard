@@ -10,8 +10,7 @@ const Home = () => {
         header={
           <Header
             headerData={{
-              name: "Dashboard Composer",
-              bio: "Search your accounts",
+              title: "Dashboard Composer",
             }}
           />
         }

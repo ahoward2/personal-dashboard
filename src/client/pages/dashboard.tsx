@@ -22,13 +22,12 @@ const Dashboard = () => {
           header={
             <Header
               headerData={{
-                name: "Dashboard Composer",
-                bio: "Your Search",
+                title: "Dashboard Composer",
               }}
             />
           }
           mainPanel={
-            <>
+            <div className="flex w-screen flex-col justify-between md:flex-row">
               {github && github?.empty === false && (
                 <Github githubData={github}></Github>
               )}
@@ -38,7 +37,7 @@ const Dashboard = () => {
               {twitter && twitter?.empty === false && (
                 <Twitter twitterData={twitter}></Twitter>
               )}
-            </>
+            </div>
           }
         ></DashboardLayout>
       ) : (
