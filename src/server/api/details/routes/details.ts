@@ -87,11 +87,6 @@ async function handler(req: Request, res: Response) {
         const { gitlab } = result[1]?.data ?? {};
         const { twitter } = result[2]?.data ?? {};
 
-        // data = {
-        //   github,
-        //   gitlab: result[1],
-        //   twitter: result[2],
-        // };
         res.json({
           github,
           gitlab,
