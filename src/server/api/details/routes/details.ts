@@ -19,7 +19,6 @@ async function handler(req: Request, res: Response) {
       twitter: "ahoward_8",
     };
     // Make Concurrent API calls
-    let data = {};
 
     async function getGithubData(githubUsername) {
       return axios.get(`http://localhost:8080/api/github/${githubUsername}`);
