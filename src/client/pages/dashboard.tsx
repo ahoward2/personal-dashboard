@@ -13,11 +13,12 @@ const Dashboard = () => {
     data: {
       data: { github, gitlab, twitter },
     },
+    isLoading,
   } = useMatch();
 
   return (
     <div className="bg-white dark:bg-black">
-      {github && gitlab && twitter ? (
+      {!isLoading ? (
         <DashboardLayout
           header={
             <Header
