@@ -6,6 +6,7 @@ import Header from "../components/Header/Header";
 import Github from "../components/GitHub/Github";
 import Gitlab from "../components/Gitlab/Gitlab";
 import Twitter from "../components/Twitter/Twitter";
+import { Clipper } from "../components/Clipper/Clipper";
 import { useMatch } from "@tanstack/react-location";
 
 const Dashboard = () => {
@@ -28,16 +29,21 @@ const Dashboard = () => {
             />
           }
           mainPanel={
-            <div className="flex w-screen flex-col justify-between md:flex-row">
-              {github && github?.empty === false && (
-                <Github githubData={github}></Github>
-              )}
-              {gitlab && gitlab?.empty === false && (
-                <Gitlab gitlabData={gitlab}></Gitlab>
-              )}
-              {twitter && twitter?.empty === false && (
-                <Twitter twitterData={twitter}></Twitter>
-              )}
+            <div className="w-screen px-2 md:px-0">
+              <div className="flex w-full flex-col justify-between md:flex-row">
+                {github && github?.empty === false && (
+                  <Github githubData={github}></Github>
+                )}
+                {gitlab && gitlab?.empty === false && (
+                  <Gitlab gitlabData={gitlab}></Gitlab>
+                )}
+                {twitter && twitter?.empty === false && (
+                  <Twitter twitterData={twitter}></Twitter>
+                )}
+              </div>
+              <div className="flex py-1 md:px-4">
+                <Clipper></Clipper>
+              </div>
             </div>
           }
         ></DashboardLayout>

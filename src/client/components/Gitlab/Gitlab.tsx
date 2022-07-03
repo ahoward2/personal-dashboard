@@ -4,7 +4,7 @@ const Gitlab = ({ gitlabData }) => {
   const { username } = gitlabData ?? {};
 
   return (
-    <div className="my-2 w-screen border border-green-700 bg-white p-2 dark:border-green-500 dark:bg-black md:mx-4 md:my-4 md:w-1/3 md:p-4">
+    <div className="my-1 w-full border border-green-700 bg-white p-2 dark:border-green-500 dark:bg-black md:mx-4 md:my-4 md:w-1/3 md:p-4">
       <ul>
         <li className="flex justify-between">
           <p className="text-left text-green-700 dark:text-green-500">
