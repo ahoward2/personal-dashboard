@@ -29,7 +29,7 @@ async function handler(req: Request, res: Response) {
 
     async function getTweetsTimeline(twitterId) {
       return axios.get(
-        `https://api.twitter.com/2/users/${twitterId}/tweets?exclude=retweets,replies&tweet.fields=public_metrics&max_results=91`,
+        `https://api.twitter.com/2/users/${twitterId}/tweets?exclude=retweets,replies&tweet.fields=public_metrics&max_results=90`,
         {
           headers: {
             Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
@@ -101,6 +101,9 @@ async function handler(req: Request, res: Response) {
           twitterResObject["total_likes"] = totalLikes;
           twitterResObject["total_retweets"] = totalRetweets;
           twitterResObject["total_replies"] = totalReplies;
+          twitterResObject["timeline_items"] = result[0]?.timelineData?.data
+            ?.reverse()
+            ?.slice(60, 90);
           twitterResObject["empty"] = false;
         }
 

@@ -38,7 +38,7 @@ const Twitter = ({ twitterData }) => {
         </li>
         <li className="flex justify-between">
           <p className="text-left text-green-700 dark:text-green-500">
-            Total Likes
+            P90 Tweet Likes
           </p>
           <p className="text-right text-cyan-700 dark:text-yellow-300">
             {total_likes ?? "loading..."}
@@ -46,7 +46,7 @@ const Twitter = ({ twitterData }) => {
         </li>
         <li className="flex justify-between">
           <p className="text-left text-green-700 dark:text-green-500">
-            Total Retweets
+            P90 Tweet Retweets
           </p>
           <p className="text-right text-cyan-700 dark:text-yellow-300">
             {total_retweets ?? "loading..."}
@@ -54,7 +54,7 @@ const Twitter = ({ twitterData }) => {
         </li>
         <li className="flex justify-between">
           <p className="text-left text-green-700 dark:text-green-500">
-            Total Repies
+            P90 Tweet Replies
           </p>
           <p className="text-right text-cyan-700 dark:text-yellow-300">
             {total_replies ?? "loading..."}

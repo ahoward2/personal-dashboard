@@ -13,6 +13,7 @@
   - General gitlab profile information.
   - General twitter information.
   - Last 90 tweets twitter stats.
+  - Last 30 tweets timeline data.
 
 ### The Client
 
@@ -26,6 +27,7 @@
 - Terminal inspired design.
   - Styled with [tailwindcss](https://tailwindcss.com/) because it's awesome and super easy to be fast with.
   - Light & dark modes.
+- Data visualization & charting with [chartjs](https://www.chartjs.org/docs/latest/).
 
 ### Screenshots
 
