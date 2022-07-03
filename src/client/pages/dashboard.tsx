@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from "react";
-import axios from "axios";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import Header from "../components/Header/Header";
 import Github from "../components/GitHub/Github";
@@ -11,11 +10,21 @@ import { useMatch } from "@tanstack/react-location";
 
 const Dashboard = () => {
   const {
-    data: {
-      data: { github, gitlab, twitter },
-    },
+    data: { data },
     isLoading,
   } = useMatch();
+
+  const blockWidthStyle = () => {
+    let style = ``;
+    if (Object.entries(data)?.length === 1) {
+      style = `md:w-full`;
+    } else if (Object.entries(data)?.length === 2) {
+      style = `md:w-1/2`;
+    } else {
+      style = `md:w-1/3`;
+    }
+    return style;
+  };
 
   return (
     <div className="bg-white dark:bg-black">
@@ -29,19 +38,25 @@ const Dashboard = () => {
             />
           }
           mainPanel={
-            <div className="w-screen px-2 md:px-0">
-              <div className="flex w-full flex-col justify-between md:flex-row">
-                {github && github?.empty === false && (
-                  <Github githubData={github}></Github>
+            <div className="w-screen px-2">
+              <div className="flex w-full flex-col justify-between pb-1 md:flex-row">
+                {data?.github && data?.github?.empty === false && (
+                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                    <Github githubData={data?.github}></Github>
+                  </div>
                 )}
-                {gitlab && gitlab?.empty === false && (
-                  <Gitlab gitlabData={gitlab}></Gitlab>
+                {data?.gitlab && data?.gitlab?.empty === false && (
+                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                    <Gitlab gitlabData={data?.gitlab}></Gitlab>
+                  </div>
                 )}
-                {twitter && twitter?.empty === false && (
-                  <Twitter twitterData={twitter}></Twitter>
+                {data?.twitter && data?.twitter?.empty === false && (
+                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                    <Twitter twitterData={data?.twitter}></Twitter>
+                  </div>
                 )}
               </div>
-              <div className="flex py-1 md:px-4">
+              <div className="flex py-1 md:py-2 md:px-2">
                 <Clipper></Clipper>
               </div>
             </div>
