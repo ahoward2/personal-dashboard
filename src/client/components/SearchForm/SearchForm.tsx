@@ -63,7 +63,7 @@ const SearchForm = () => {
       className="mx-auto flex w-full flex-col p-2 md:flex-row lg:w-4/5"
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
     >
-      <div className="flex flex-col px-2">
+      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <label className="text-indigo-700 dark:text-teal-400">Github</label>
         <input
           type="text"
@@ -71,7 +71,7 @@ const SearchForm = () => {
           {...register("github")}
         />
       </div>
-      <div className="flex flex-col px-2">
+      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <label className="text-indigo-700 dark:text-teal-400">Gitlab</label>
         <input
           type="text"
@@ -79,7 +79,7 @@ const SearchForm = () => {
           {...register("gitlab")}
         />
       </div>
-      <div className="flex flex-col px-2">
+      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <label className="text-indigo-700 dark:text-teal-400">Twitter</label>
         <input
           type="text"
@@ -87,7 +87,7 @@ const SearchForm = () => {
           {...register("twitter")}
         />
       </div>
-      <div className="flex w-full px-2 pt-4 md:py-0 md:pl-0 md:pr-2">
+      <div className="flex w-full px-2 pt-4 md:w-24 md:py-0 md:pl-0 md:pr-2">
         <button
           type="submit"
           className="border-1 w-full rounded border border-indigo-700 bg-white px-4 py-2 text-indigo-700 hover:bg-indigo-700 hover:text-white dark:border-teal-400 dark:bg-black dark:text-teal-400 dark:hover:bg-teal-400 dark:hover:text-black md:mt-0 md:ml-2 md:self-end"
