@@ -80,7 +80,6 @@ async function handler(req: Request, res: Response) {
 
     await Promise.all(callArray)
       .then((result) => {
-        logger.log("Promise finished");
         // ======= Construct Details Response ======= //
         const { github } = result[0]?.data ?? {};
         const { gitlab } = result[1]?.data ?? {};

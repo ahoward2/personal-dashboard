@@ -9,18 +9,31 @@ const SearchForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    let navigateString = `/dashboard`;
+    let navigateString = `/dashboard?`;
+    let accountCount = 0;
 
     if (github !== "") {
-      navigateString += `?github=${github}`;
+      if (accountCount > 0) {
+        navigateString += `&`;
+      }
+      navigateString += `github=${github}`;
+      accountCount += 1;
     }
 
     if (gitlab !== "") {
-      navigateString += `&gitlab=${gitlab}`;
+      if (accountCount > 0) {
+        navigateString += `&`;
+      }
+      navigateString += `gitlab=${gitlab}`;
+      accountCount += 1;
     }
 
     if (twitter !== "") {
-      navigateString += `&twitter=${twitter}`;
+      if (accountCount > 0) {
+        navigateString += `&`;
+      }
+      navigateString += `twitter=${twitter}`;
+      accountCount += 1;
     }
 
     e.preventDefault();
@@ -31,7 +44,7 @@ const SearchForm = () => {
 
   return (
     <form
-      className="flex w-screen flex-col p-2 md:flex-row"
+      className="flex w-full flex-col p-2 md:flex-row"
       onSubmit={(e) => handleSubmit(e)}
     >
       <div className="flex flex-col px-2">
