@@ -5,7 +5,8 @@ const Header = ({ headerData }) => {
   const { title } = headerData ?? {};
   return (
     <header className="flex w-screen items-center justify-between p-2 md:p-4">
-      <h3 className="text-xl text-green-700 dark:text-green-500 md:text-2xl">
+      <div className="hidden md:block"></div>
+      <h3 className="px-2 text-xl font-black text-sky-900 dark:text-teal-300 md:px-0 md:text-2xl">
         {title ? title : "..."}
       </h3>
       <ThemeToggler></ThemeToggler>

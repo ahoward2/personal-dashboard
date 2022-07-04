@@ -15,9 +15,14 @@ const Home = () => {
           />
         }
         mainPanel={
-          <>
+          <div className="flex w-screen flex-col">
+            <div className="p-2 md:p-4">
+              <h1 className=" text-center text-3xl font-black text-purple-800 dark:text-rose-300 md:text-6xl">
+                Search Your Accounts
+              </h1>
+            </div>
             <SearchForm></SearchForm>
-          </>
+          </div>
         }
       ></HomeLayout>
     </div>

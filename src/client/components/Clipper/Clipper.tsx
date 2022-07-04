@@ -7,7 +7,7 @@ const Clipper = () => {
       onClick={async () => {
         await copyToClipboard(window.location.toString());
       }}
-      className="w-full border border-green-700 py-1 text-blue-700 dark:border-green-500 dark:bg-black dark:text-yellow-400"
+      className="w-full border border-sky-900 py-1 text-purple-800 dark:border-teal-300 dark:bg-black dark:text-rose-300"
     >
       Copy Dashboard To Clipboard
     </button>
