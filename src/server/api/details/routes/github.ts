@@ -51,15 +51,14 @@ async function handler(req: Request, res: Response) {
         const { login, followers, public_repos } = result[0]?.data ?? {};
         let githubResObject = { login, followers, public_repos };
 
-        if (result[1]?.empty) {
-          githubResObject["empty"] = true;
+        if (result[0] === undefined || result[1] === undefined) {
+          return;
         } else {
           let totalStars = 0;
           result[1]?.data?.forEach((repo) => {
             totalStars += repo?.stargazers_count ?? 0;
           });
           githubResObject["total_stars"] = totalStars;
-          githubResObject["empty"] = false;
         }
 
         data = {

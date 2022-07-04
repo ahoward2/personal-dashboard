@@ -48,10 +48,8 @@ async function handler(req: Request, res: Response) {
         const { username } = result[0]?.data?.[0] ?? {};
         let gitlabResObject = { username };
 
-        if (result[0]?.empty) {
-          gitlabResObject["empty"] = true;
-        } else {
-          gitlabResObject["empty"] = false;
+        if (username === undefined) {
+          return;
         }
 
         data = {

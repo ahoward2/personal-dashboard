@@ -52,7 +52,6 @@ async function handler(req: Request, res: Response) {
       } catch (error) {
         console.error(error);
       }
-
       return data;
     }
 
@@ -86,8 +85,8 @@ async function handler(req: Request, res: Response) {
 
         let twitterResObject = { username: twitterUsername, followers_count };
 
-        if (result[0]?.empty) {
-          twitterResObject["empty"] = true;
+        if (result[0] === undefined) {
+          return;
         } else {
           let totalLikes = 0;
           let totalRetweets = 0;
@@ -104,7 +103,6 @@ async function handler(req: Request, res: Response) {
           twitterResObject["timeline_items"] = result[0]?.timelineData?.data
             ?.reverse()
             ?.slice(60, 90);
-          twitterResObject["empty"] = false;
         }
 
         data = {
@@ -112,7 +110,7 @@ async function handler(req: Request, res: Response) {
         };
       })
       .catch((error) => {
-        console.error(error);
+        res.status(500);
       });
     return data;
   }

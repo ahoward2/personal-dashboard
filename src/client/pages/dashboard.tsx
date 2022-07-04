@@ -36,37 +36,35 @@ const Dashboard = () => {
               headerData={{
                 title: "Dashboard Composer",
               }}
+              clipper={<Clipper></Clipper>}
             />
           }
           mainPanel={
             <div className="w-screen px-2">
               <div className="flex w-full flex-col justify-between pb-1 md:flex-row">
-                {data?.github && data?.github?.empty === false && (
+                {data?.github && (
                   <div className={`md:m-2 ${blockWidthStyle()}`}>
                     <Github githubData={data?.github}></Github>
                   </div>
                 )}
-                {data?.gitlab && data?.gitlab?.empty === false && (
+                {data?.gitlab && (
                   <div className={`md:m-2 ${blockWidthStyle()}`}>
                     <Gitlab gitlabData={data?.gitlab}></Gitlab>
                   </div>
                 )}
-                {data?.twitter && data?.twitter?.empty === false && (
+                {data?.twitter && (
                   <div className={`md:m-2 ${blockWidthStyle()}`}>
                     <Twitter twitterData={data?.twitter}></Twitter>
                   </div>
                 )}
               </div>
-              {data?.twitter && data?.twitter?.empty === false && (
-                <div className="sm:hidden md:block">
+              {data?.twitter && (
+                <div className="hidden md:block">
                   <TwitterChart
                     data={data?.twitter?.timeline_items}
                   ></TwitterChart>
                 </div>
               )}
-              <div className="flex py-1 md:py-2 md:px-2">
-                <Clipper></Clipper>
-              </div>
             </div>
           }
         ></DashboardLayout>

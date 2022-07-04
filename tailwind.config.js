@@ -35,9 +35,9 @@ module.exports = {
       fuchsia: colors.fuchsia,
       transparent: colors.transparent,
     },
-    fontFamily: {
-      serif: ["Merriweather", "serif"],
-    },
+    // fontFamily: {
+    //   serif: ["Merriweather", "serif"],
+    // },
     fontSize: {
       xs: ".75rem",
       sm: ".875rem",

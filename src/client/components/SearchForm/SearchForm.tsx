@@ -64,33 +64,33 @@ const SearchForm = () => {
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
     >
       <div className="flex flex-col px-2">
-        <label className="text-sky-900 dark:text-teal-400">Github</label>
+        <label className="text-indigo-700 dark:text-teal-400">Github</label>
         <input
           type="text"
-          className="border-1 border-sky-900 text-sky-900 appearance-none border bg-white focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
+          className="border-1 appearance-none rounded border border-indigo-700 bg-white text-indigo-700 focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
           {...register("github")}
         />
       </div>
       <div className="flex flex-col px-2">
-        <label className="text-sky-900 dark:text-teal-400">Gitlab</label>
+        <label className="text-indigo-700 dark:text-teal-400">Gitlab</label>
         <input
           type="text"
-          className="border-1 border-sky-900 text-sky-900 appearance-none border bg-white focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
+          className="border-1 appearance-none rounded border border-indigo-700 bg-white text-indigo-700 focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
           {...register("gitlab")}
         />
       </div>
       <div className="flex flex-col px-2">
-        <label className="text-sky-900 dark:text-teal-400">Twitter</label>
+        <label className="text-indigo-700 dark:text-teal-400">Twitter</label>
         <input
           type="text"
-          className="border-1 border-sky-900 text-sky-900 appearance-none border bg-white focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
+          className="border-1 appearance-none rounded border border-indigo-700 bg-white text-indigo-700 focus:border-teal-400 dark:border-teal-400 dark:bg-black dark:text-teal-400"
           {...register("twitter")}
         />
       </div>
-      <div className="flex w-full px-2 py-4 md:py-0 md:pl-0 md:pr-2">
+      <div className="flex w-full px-2 pt-4 md:py-0 md:pl-0 md:pr-2">
         <button
           type="submit"
-          className="border-1 border-sky-900 text-sky-900 hover:bg-sky-900 w-full border bg-white px-4 py-2 hover:text-white dark:border-teal-400 dark:bg-black dark:text-teal-400 dark:hover:bg-teal-400 dark:hover:text-black md:mt-0 md:ml-2 md:self-end"
+          className="border-1 w-full rounded border border-indigo-700 bg-white px-4 py-2 text-indigo-700 hover:bg-indigo-700 hover:text-white dark:border-teal-400 dark:bg-black dark:text-teal-400 dark:hover:bg-teal-400 dark:hover:text-black md:mt-0 md:ml-2 md:self-end"
         >
           Search
         </button>
