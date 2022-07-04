@@ -22,6 +22,38 @@ async function handler(req: Request, res: Response) {
       );
     }
 
+    async function getGitlabDetails(gitlabUserId) {
+      return axios.get(`https://gitlab.com/api/v4/users/${gitlabUserId}`, {
+        headers: {
+          "PRIVATE-TOKEN": `${process.env.GITLAB_ACCESS_TOKEN}`,
+        },
+      });
+    }
+
+    async function getGitlabRepos(gitlabUserId) {
+      return axios.get(
+        `https://gitlab.com/api/v4/users/${gitlabUserId}/projects`
+      );
+    }
+
+    async function getAllGitlabData(gitlabUsername) {
+      let data;
+      try {
+        const gitlabDataRes = await getGitlabData(gitlabUsername);
+        const gitlabReposRes = await getGitlabRepos(gitlabDataRes?.data[0]?.id);
+        const gitlabDetailRes = await getGitlabDetails(
+          gitlabDataRes?.data[0]?.id
+        );
+        data = {
+          details: gitlabDetailRes.data,
+          repos: gitlabReposRes.data,
+        };
+      } catch (error) {
+        console.error(error);
+      }
+      return data;
+    }
+
     /**
      * A function to construct an array of calls
      * for Promise.all or Promise.allSettled. If user only provides
@@ -32,7 +64,7 @@ async function handler(req: Request, res: Response) {
       const callArray: Promise<any>[] = [];
       try {
         if (username) {
-          callArray.push(getGitlabData(username));
+          callArray.push(getAllGitlabData(username));
         }
       } catch (error) {
         console.error(error);
@@ -45,12 +77,26 @@ async function handler(req: Request, res: Response) {
     await Promise.all(callArray)
       .then((result) => {
         // ======= Construct Gitlab Response ======= //
-        const { username } = result[0]?.data?.[0] ?? {};
-        let gitlabResObject = { username };
+        const { username, followers } = result[0]?.details ?? {};
 
         if (username === undefined) {
           return;
         }
+
+        console.log(result[0]);
+
+        let totalStars = 0;
+
+        result[0]?.repos?.map((repo) => {
+          totalStars += repo.star_count;
+        });
+
+        let gitlabResObject = {
+          username,
+          followers,
+          public_repos: result[0]?.repos?.length,
+          total_stars: totalStars,
+        };
 
         data = {
           gitlab: gitlabResObject,
