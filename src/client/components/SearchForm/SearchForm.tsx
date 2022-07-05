@@ -66,7 +66,7 @@ const SearchForm = () => {
       <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <input
           type="text"
-          className="appearance-none rounded border-2 border-indigo-400 bg-white text-indigo-700 focus:border-indigo-700 focus:outline-none focus:ring-indigo-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
+          className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
           placeholder="Github Username"
           {...register("github")}
         />
@@ -74,7 +74,7 @@ const SearchForm = () => {
       <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <input
           type="text"
-          className="appearance-none rounded border-2 border-indigo-400 bg-white text-indigo-700 focus:border-indigo-700 focus:outline-none focus:ring-indigo-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
+          className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
           placeholder="Gitlab Username"
           {...register("gitlab")}
         />
@@ -82,7 +82,7 @@ const SearchForm = () => {
       <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
         <input
           type="text"
-          className="appearance-none rounded border-2 border-indigo-400 bg-white text-indigo-700 focus:border-indigo-700 focus:outline-none focus:ring-indigo-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
+          className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
           placeholder="Twitter Username"
           {...register("twitter")}
         />
@@ -90,7 +90,7 @@ const SearchForm = () => {
       <div className="flex w-full px-2 pt-4 md:w-24 md:py-0 md:pl-0 md:pr-2">
         <button
           type="submit"
-          className="w-full rounded border-2 border-indigo-700 bg-indigo-700 px-4 py-2 text-white dark:border-teal-400 dark:bg-teal-400 dark:text-black  md:mt-0 md:ml-2 md:self-end"
+          className="w-full rounded border-2 border-indigo-700 bg-indigo-700 px-4 py-2 text-white dark:border-rose-300 dark:bg-rose-300 dark:text-black  md:mt-0 md:ml-2 md:self-end"
         >
           Search
         </button>
