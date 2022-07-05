@@ -29,6 +29,17 @@
   - Light & dark modes.
 - Data visualization & charting with [chartjs](https://www.chartjs.org/docs/latest/).
 
+### Deployment
+
+- Deployed as an edge container with [fly.io](https://fly.io/).
+  - 1 region (Miami Florida, US).
+
+### Considerations
+
+- Caching on the server in-memory could eventually result in needing to increase the memory capacity of the server. Redis or a CDN could probably do a better job of this so I'm looking at what is the most inexpensive option. In the mean time a possible solution would be to clean up any long running cached objects that aren't really being used for a while.
+- Rate limits on external API's may get hit which could result in all users not being able to request new data if it's not already cached on the server. This will take some trial and error to see what the right combination of client/server caching and rate limiting on the server to avoid hitting limits.
+- I originally wanted to use Nest JS to learn how to use it but I think it's a little overkill for this. The size of the docker image could probably be smaller and the server could be faster using something like [fastify](https://www.fastify.io/).
+
 ### Screenshots
 
 ![homepage dark screenshot](public/home-dark.png)
