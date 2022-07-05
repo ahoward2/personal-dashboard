@@ -16,6 +16,10 @@
 FROM node:16-alpine
 ENV NODE_ENV=production
 WORKDIR /app
-COPY . .
+RUN yarn install --frozen-lockfile --prod
+COPY /dist/ /app/dist/
+COPY /node_modules/ /app/node_modules/
+COPY package.json /app/
+COPY yarn.lock /app/
 EXPOSE 8080
-CMD ["yarn", "start:server"]
+CMD ["node", "dist/server/main.js"]
