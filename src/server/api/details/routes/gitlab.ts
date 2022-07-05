@@ -83,8 +83,6 @@ async function handler(req: Request, res: Response) {
           return;
         }
 
-        console.log(result[0]);
-
         let totalStars = 0;
 
         result[0]?.repos?.map((repo) => {
