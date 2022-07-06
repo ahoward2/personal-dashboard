@@ -63,7 +63,7 @@ const SearchForm = () => {
       className="mx-auto flex w-full flex-col p-2 md:flex-row lg:w-4/5"
       onSubmit={handleSubmit(async (data) => await onSubmit(data))}
     >
-      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
+      <div className="flex flex-grow flex-col px-2 pb-4 md:pb-0">
         <input
           type="text"
           className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
@@ -71,7 +71,7 @@ const SearchForm = () => {
           {...register("github")}
         />
       </div>
-      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
+      <div className="flex flex-grow flex-col px-2 pb-4 md:pb-0">
         <input
           type="text"
           className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"
@@ -79,7 +79,7 @@ const SearchForm = () => {
           {...register("gitlab")}
         />
       </div>
-      <div className="flex flex-grow flex-col px-2 pb-2 md:pb-0">
+      <div className="flex flex-grow flex-col px-2 md:pb-0">
         <input
           type="text"
           className="appearance-none rounded border-2 border-fuchsia-400 bg-white text-fuchsia-700 focus:border-fuchsia-700 focus:outline-none focus:ring-fuchsia-700 dark:border-teal-200 dark:bg-black dark:text-teal-400 dark:focus:border-teal-400  dark:focus:ring-teal-400"

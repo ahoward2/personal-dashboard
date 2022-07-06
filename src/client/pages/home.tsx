@@ -18,7 +18,7 @@ const Home = () => {
         mainPanel={
           <div className="flex w-screen flex-col">
             <div className="p-2 md:p-4">
-              <h1 className=" text-8xl bg-gradient-to-r from-fuchsia-700 to-indigo-700 bg-clip-text text-center text-3xl font-black text-transparent dark:from-teal-400 dark:to-rose-300 md:text-6xl">
+              <h1 className="text-8xl bg-gradient-to-r from-fuchsia-700 to-indigo-700 bg-clip-text text-center text-3xl font-black text-transparent dark:from-teal-400 dark:to-rose-300 md:text-6xl">
                 Search Your Accounts
               </h1>
             </div>

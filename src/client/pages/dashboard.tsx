@@ -8,6 +8,7 @@ import Twitter from "../components/Twitter/Twitter";
 import { Clipper } from "../components/Clipper/Clipper";
 import { useMatch } from "@tanstack/react-location";
 import { TwitterChart } from "../components/Twitter/TwitterChart";
+import { Message } from "../components/Message/Message";
 
 const Dashboard = () => {
   const {
@@ -40,30 +41,38 @@ const Dashboard = () => {
             />
           }
           mainPanel={
-            <div className="w-screen px-2">
-              <div className="flex w-full flex-col justify-between pb-1 md:flex-row">
+            <div className="w-screen px-4">
+              <div className="flex w-full flex-col justify-between md:flex-row">
                 {data?.github && (
-                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                  <div className={`my-4 md:m-2 ${blockWidthStyle()}`}>
                     <Github githubData={data?.github}></Github>
                   </div>
                 )}
                 {data?.gitlab && (
-                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                  <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
                     <Gitlab gitlabData={data?.gitlab}></Gitlab>
                   </div>
                 )}
                 {data?.twitter && (
-                  <div className={`md:m-2 ${blockWidthStyle()}`}>
+                  <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
                     <Twitter twitterData={data?.twitter}></Twitter>
                   </div>
                 )}
               </div>
               {data?.twitter && (
-                <div className="hidden md:block">
-                  <TwitterChart
-                    data={data?.twitter?.timeline_items}
-                  ></TwitterChart>
-                </div>
+                <>
+                  <div className="hidden md:mt-4 md:block">
+                    <TwitterChart
+                      data={data?.twitter?.timeline_items}
+                    ></TwitterChart>
+                  </div>
+                  <div className="md:hidden">
+                    <Message
+                      title="Try Desktop Version ⚡️"
+                      content="To see past 30 tweets stats chart and for better overall experience, consider viewing the dashboard on a desktop or medium device."
+                    ></Message>
+                  </div>
+                </>
               )}
             </div>
           }
