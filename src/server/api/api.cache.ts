@@ -42,7 +42,6 @@ export async function useCache(
       // Data object for the cached values and their keys.
       data: {},
     };
-    logger.log(`Pushing new cache object: ${targetCacheObject.key}`);
     cache.push(targetCacheObject);
   } else {
     targetCacheObject = cache.find((cacheobj) => cacheobj.key === req.url);
@@ -52,7 +51,7 @@ export async function useCache(
     Math.floor(timePassed / 1000) >= targetCacheObject.ttl ||
     targetCacheObject.cacheSetOnce === false
   ) {
-    logger.log(`Set value to cache: ${targetCacheObject.key}`);
+    logger.log(`Value set to cache: ${targetCacheObject.key}`);
     const data = await handler(req, res);
     targetCacheObject.data = data;
     targetCacheObject.startTime = Date.now();

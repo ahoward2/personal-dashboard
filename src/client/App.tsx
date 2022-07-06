@@ -66,8 +66,10 @@ const App = () => {
           ]}
         >
           <Outlet />
-          <ReactQueryDevtools initialIsOpen={false} />
-          <ReactLocationDevtools initialIsOpen={false} />
+          {process.env.NODE_ENV === "development" && (
+            // <ReactQueryDevtools initialIsOpen={false} />
+            <ReactLocationDevtools initialIsOpen={false} />
+          )}
         </Router>
       </QueryClientProvider>
     </ThemeContextProvider>
