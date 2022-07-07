@@ -3,6 +3,7 @@ import HomeLayout from "../layouts/HomeLayout/HomeLayout";
 import Header from "../components/Header/Header";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { Message } from "../components/Message/Message";
+import { Toast } from "../components/Toast/Toast";
 
 const Home = () => {
   return (
@@ -31,6 +32,12 @@ const Home = () => {
                 }
               ></Message>
             </div>
+            <Toast
+              data={{
+                message: "Must specify at least one account",
+                type: "error",
+              }}
+            ></Toast>
           </div>
         }
       ></HomeLayout>
