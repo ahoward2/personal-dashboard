@@ -1,0 +1,20 @@
+name: Build and Fly Deploy
+on:
+  push:
+    branches:
+      - "master"
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    container: node:16-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: rm -rf node_modules
+      - run: yarn install --frozen-lockfile --prod
+      - run: flyctl deploy --remote-only
