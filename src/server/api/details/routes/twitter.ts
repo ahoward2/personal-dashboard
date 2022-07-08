@@ -100,9 +100,10 @@ async function handler(req: Request, res: Response) {
           twitterResObject["total_likes"] = totalLikes;
           twitterResObject["total_retweets"] = totalRetweets;
           twitterResObject["total_replies"] = totalReplies;
+
           twitterResObject["timeline_items"] = result[0]?.timelineData?.data
-            ?.reverse()
-            ?.slice(60, 90);
+            ?.slice(0, 30)
+            ?.reverse();
         }
 
         data = {
