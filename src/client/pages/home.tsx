@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeLayout from "../layouts/HomeLayout/HomeLayout";
 import Header from "../components/Header/Header";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { Message } from "../components/Message/Message";
+import { Toaster } from "react-hot-toast";
+import { handleShowToast } from "../components/Toast/Events";
 
 const Home = () => {
+  useEffect(() => {
+    window.addEventListener("showToast", handleShowToast);
+    return () => {
+      window.removeEventListener("showToast", handleShowToast);
+    };
+  }, []);
+
   return (
     <div className="bg-white dark:bg-black">
       <HomeLayout
@@ -31,6 +40,7 @@ const Home = () => {
                 }
               ></Message>
             </div>
+            <Toaster position="bottom-center" />
           </div>
         }
       ></HomeLayout>

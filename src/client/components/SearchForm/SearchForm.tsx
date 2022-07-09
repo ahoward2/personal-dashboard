@@ -3,7 +3,6 @@ import { useNavigate } from "@tanstack/react-location";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 interface SearchFromInputs {
   github: string;
   gitlab: string;
@@ -24,6 +23,18 @@ const SearchForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    if (data.github === "" && data.gitlab === "" && data.twitter === "") {
+      window.dispatchEvent(
+        new CustomEvent("showToast", {
+          detail: {
+            message: "Must provide at least 1 account!",
+            type: "error",
+          },
+        })
+      );
+      return;
+    }
+
     let navigateString = `/dashboard?`;
     let accountCount = 0;
 
