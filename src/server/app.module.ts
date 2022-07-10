@@ -15,7 +15,7 @@ import { ScheduleModule } from "@nestjs/schedule";
     }),
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 20,
+      limit: 10,
     }),
     ApiModule,
   ],
