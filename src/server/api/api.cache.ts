@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { Logger } from "@nestjs/common";
 
-// Create new NestJS logger
-const logger = new Logger("DETAIL_ROUTE");
+// Create new NestJS loggers
+const routeLogger = new Logger("DETAIL_ROUTE");
+const cleanupLogger = new Logger("DETAIL_CLEANUP");
 
 type JSONValue =
   | string
@@ -58,13 +59,34 @@ export async function useCache(
     Math.floor(timePassed / 1000) >= targetCacheObject.ttl ||
     targetCacheObject.cacheSetOnce === false
   ) {
-    logger.log(`Value set to cache: ${targetCacheObject.key}`);
+    routeLogger.log(`Value set to cache: ${targetCacheObject.key}`);
     const data = await handler(req, res);
     targetCacheObject.data = data;
     targetCacheObject.startTime = Date.now();
     targetCacheObject.cacheSetOnce = true;
   } else {
-    logger.log(`Value pulled from cache: ${targetCacheObject.key}`);
+    routeLogger.log(`Value pulled from cache: ${targetCacheObject.key}`);
   }
   res.json(targetCacheObject.data);
+}
+
+/**
+ * Cleans up the cache based on the time passed since the cache entry was set.
+ * This will ideally ensure that memory is not being used up for old / unused cache entries.
+ * @param ttlDelta Time past cache ttl in ms to be eligible for cleanup.
+ */
+export async function cleanCache(ttlDelta: number) {
+  try {
+    const cacheToRemove = cache.filter(
+      (cacheobj) =>
+        Math.floor(Date.now() - cacheobj.startTime) >= cacheobj.ttl + ttlDelta
+    );
+
+    cacheToRemove.forEach((cacheobj) => {
+      cleanupLogger.log(`Removing cache entry: ${cacheobj.key}`);
+      cache.splice(cache.indexOf(cacheobj), 1);
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
