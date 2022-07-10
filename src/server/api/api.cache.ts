@@ -4,12 +4,19 @@ import { Logger } from "@nestjs/common";
 // Create new NestJS logger
 const logger = new Logger("DETAIL_ROUTE");
 
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | { [x: string]: JSONValue }
+  | Array<JSONValue>;
+
 export type CacheObject = {
   key: any;
   ttl: number;
   startTime: number;
   cacheSetOnce: boolean;
-  data: Object;
+  data: JSONValue;
 };
 
 const cache: CacheObject[] = [];
@@ -23,7 +30,7 @@ const cache: CacheObject[] = [];
 export async function useCache(
   req: Request,
   res: Response,
-  handler: (req: Request, res: Response) => any
+  handler: (req: Request, res: Response) => Promise<any>
 ) {
   let targetCacheObject;
 

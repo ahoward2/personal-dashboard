@@ -8,19 +8,19 @@ import { RouteConfig as TwitterConfig } from "./routes/twitter";
 @Controller("api")
 export class DetailsController {
   @All(DetailsConfig.path)
-  async executeUserDetail(@Req() req, @Res() res) {
+  async executeUserDetail(@Req() req, @Res() res): Promise<void> {
     return DetailsConfig.handler(req, res);
   }
   @All(GithubConfig.path)
-  async executeGithubDetail(@Req() req, @Res() res) {
+  async executeGithubDetail(@Req() req, @Res() res): Promise<void> {
     return useCache(req, res, GithubConfig.handler);
   }
   @All(GitlabConfig.path)
-  async executeGitlabDetail(@Req() req, @Res() res) {
+  async executeGitlabDetail(@Req() req, @Res() res): Promise<void> {
     return useCache(req, res, GitlabConfig.handler);
   }
   @All(TwitterConfig.path)
-  async executeTwitterDetail(@Req() req, @Res() res) {
+  async executeTwitterDetail(@Req() req, @Res() res): Promise<void> {
     return useCache(req, res, TwitterConfig.handler);
   }
 }

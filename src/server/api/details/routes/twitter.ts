@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
+import { ITwitterResponse } from "../../interfaces/twitter.interface";
 
 /**
  * Aggregates fetches from multiple API endpoints about
@@ -8,13 +9,16 @@ import { Request, Response } from "express";
  * @param req Express request.
  * @param res Express response.
  */
-async function handler(req: Request, res: Response) {
+async function handler(
+  req: Request,
+  res: Response
+): Promise<ITwitterResponse | {}> {
+  let data = {};
+
   if (req.method === "GET") {
     const { username } = req.params ?? {
       username: "ahoward_8",
     };
-    // Make Concurrent API calls
-    let data = {};
 
     async function getTwitterData(twitterUserName) {
       return axios.get(
@@ -61,7 +65,7 @@ async function handler(req: Request, res: Response) {
      * some of the account options and not all we need to construct an array
      * that supports any number of accounts.
      */
-    async function constructCallArray({ username }: { username?: any }) {
+    async function constructCallArray({ username }: { username: string }) {
       const callArray: Promise<any>[] = [];
       try {
         if (username) {
@@ -113,8 +117,8 @@ async function handler(req: Request, res: Response) {
       .catch((error) => {
         res.status(500);
       });
-    return data;
   }
+  return data;
 }
 
 export const RouteConfig = {

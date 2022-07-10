@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-
+import { IGitlabResponse } from "../../interfaces/gitlab.interface";
 /**
  * Aggregates fetches from multiple API endpoints about
  * a user's details.
@@ -8,21 +8,24 @@ import { Request, Response } from "express";
  * @param req Express request.
  * @param res Express response.
  */
-async function handler(req: Request, res: Response) {
+async function handler(
+  req: Request,
+  res: Response
+): Promise<IGitlabResponse | {}> {
+  let data = {};
+
   if (req.method === "GET") {
     const { username } = req.params ?? {
       username: "ahoward21",
     };
-    // Make Concurrent API calls
-    let data = {};
 
-    async function getGitlabData(gitlabUsername) {
+    async function getGitlabData(gitlabUsername: string) {
       return axios.get(
         `https://gitlab.com/api/v4/users?username=${gitlabUsername}`
       );
     }
 
-    async function getGitlabDetails(gitlabUserId) {
+    async function getGitlabDetails(gitlabUserId: string) {
       return axios.get(`https://gitlab.com/api/v4/users/${gitlabUserId}`, {
         headers: {
           "PRIVATE-TOKEN": `${process.env.GITLAB_ACCESS_TOKEN}`,
@@ -30,13 +33,13 @@ async function handler(req: Request, res: Response) {
       });
     }
 
-    async function getGitlabRepos(gitlabUserId) {
+    async function getGitlabRepos(gitlabUserId: string) {
       return axios.get(
         `https://gitlab.com/api/v4/users/${gitlabUserId}/projects`
       );
     }
 
-    async function getAllGitlabData(gitlabUsername) {
+    async function getAllGitlabData(gitlabUsername: string) {
       let data;
       try {
         const gitlabDataRes = await getGitlabData(gitlabUsername);
@@ -60,7 +63,7 @@ async function handler(req: Request, res: Response) {
      * some of the account options and not all we need to construct an array
      * that supports any number of accounts.
      */
-    async function constructCallArray({ username }: { username?: any }) {
+    async function constructCallArray({ username }: { username: string }) {
       const callArray: Promise<any>[] = [];
       try {
         if (username) {
@@ -103,8 +106,8 @@ async function handler(req: Request, res: Response) {
       .catch((error) => {
         console.error(error);
       });
-    return data;
   }
+  return data;
 }
 
 export const RouteConfig = {

@@ -1,8 +1,5 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { Logger } from "@nestjs/common";
-
-const logger = new Logger("DETAILS");
 
 /**
  * Aggregates fetches from multiple API endpoints about
@@ -20,15 +17,15 @@ async function handler(req: Request, res: Response) {
     };
     // Make Concurrent API calls
 
-    async function getGithubData(githubUsername) {
+    async function getGithubData(githubUsername: string) {
       return axios.get(`http://localhost:8080/api/github/${githubUsername}`);
     }
 
-    async function getGitlabData(gitlabUsername) {
+    async function getGitlabData(gitlabUsername: string) {
       return axios.get(`http://localhost:8080/api/gitlab/${gitlabUsername}`);
     }
 
-    async function getTwitterData(twitterUsername) {
+    async function getTwitterData(twitterUsername: string) {
       return axios.get(`http://localhost:8080/api/twitter/${twitterUsername}`);
     }
 
