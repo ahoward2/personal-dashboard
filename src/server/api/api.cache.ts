@@ -75,7 +75,7 @@ export async function useCache(
  * This will ideally ensure that memory is not being used up for old / unused cache entries.
  * @param ttlDelta Time past cache ttl in ms to be eligible for cleanup.
  */
-export async function cleanCache(ttlDelta: number) {
+export async function cleanCache(ttlDelta: number): Promise<void> {
   try {
     const cacheToRemove = cache.filter(
       (cacheobj) =>
