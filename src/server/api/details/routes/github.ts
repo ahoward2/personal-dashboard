@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
+import { IGithubResponse } from "../../interfaces/github.interface";
 
 /**
  * Aggregates fetches from multiple API endpoints about
@@ -8,19 +9,22 @@ import { Request, Response } from "express";
  * @param req Express request.
  * @param res Express response.
  */
-async function handler(req: Request, res: Response) {
+async function handler(
+  req: Request,
+  res: Response
+): Promise<IGithubResponse | {}> {
+  let data = {};
+
   if (req.method === "GET") {
     const { username } = req.params ?? {
       username: "ahoward2",
     };
-    // Make Concurrent API calls
-    let data = {};
 
-    async function getGithubData(githubUsername) {
+    async function getGithubData(githubUsername: string) {
       return axios.get(`https://api.github.com/users/${githubUsername}`);
     }
 
-    async function getRepos(githubUsername) {
+    async function getRepos(githubUsername: string) {
       return axios.get(`https://api.github.com/users/${githubUsername}/repos`);
     }
 
@@ -30,7 +34,7 @@ async function handler(req: Request, res: Response) {
      * some of the account options and not all we need to construct an array
      * that supports any number of accounts.
      */
-    async function constructCallArray({ username }: { username?: any }) {
+    async function constructCallArray({ username }: { username: string }) {
       const callArray: Promise<any>[] = [];
       try {
         if (username) {
@@ -68,8 +72,8 @@ async function handler(req: Request, res: Response) {
       .catch((error) => {
         console.error(error);
       });
-    return data;
   }
+  return data;
 }
 
 export const RouteConfig = {
