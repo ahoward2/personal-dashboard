@@ -14,6 +14,7 @@ const Dashboard = () => {
   const {
     data: { data },
     isLoading,
+    error,
   } = useMatch();
 
   const blockWidthStyle = () => {
@@ -30,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <div className="bg-white dark:bg-black">
-      {!isLoading ? (
+      {!isLoading && data && (
         <DashboardLayout
           header={
             <Header
@@ -77,8 +78,26 @@ const Dashboard = () => {
             </div>
           }
         ></DashboardLayout>
-      ) : (
-        <></>
+      )}
+      {!data && error.response.status === 429 && (
+        <DashboardLayout
+          header={
+            <Header
+              headerData={{
+                title: "Dashboard Composer",
+              }}
+              clipper={<></>}
+            ></Header>
+          }
+          mainPanel={
+            <div className="w-screen px-4">
+              <Message
+                title="Error"
+                content={`${error?.message}. You've sent too many requests to the server within the last minute.Try again in a minute and please be gentle with the server 😌.`}
+              ></Message>
+            </div>
+          }
+        ></DashboardLayout>
       )}
     </div>
   );
