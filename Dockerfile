@@ -9,7 +9,6 @@
 FROM node:16-alpine
 ENV NODE_ENV=production
 WORKDIR /app
-RUN yarn install --frozen-lockfile --prod
 COPY /dist/ /app/dist/
 COPY /node_modules/ /app/node_modules/
 COPY package.json /app/
