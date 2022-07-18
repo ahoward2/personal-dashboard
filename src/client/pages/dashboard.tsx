@@ -1,27 +1,26 @@
-// @ts-nocheck
 import React from "react";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import Header from "../components/Header/Header";
-import Github from "../components/GitHub/Github";
-import Gitlab from "../components/Gitlab/Gitlab";
-import Twitter from "../components/Twitter/Twitter";
 import { Clipper } from "../components/Clipper/Clipper";
 import { useMatch } from "@tanstack/react-location";
-import { TwitterChart } from "../components/Twitter/TwitterChart";
+import { TwitterChart } from "../components/TwitterChart/TwitterChart";
 import { Message } from "../components/Message/Message";
+import AccountCard from "../components/AccountCard/AccountCard";
+import { LocationGenerics } from "../interfaces/location.interface";
 
 const Dashboard = () => {
   const {
-    data: { data },
+    data: { data, error },
     isLoading,
-    error,
-  } = useMatch();
+  } = useMatch<LocationGenerics>();
+
+  const { timeline_items, ...restTwitter } = data?.twitter ?? {};
 
   const blockWidthStyle = () => {
     let style = ``;
-    if (Object.entries(data)?.length === 1) {
+    if (data && Object.entries(data)?.length === 1) {
       style = `md:w-full`;
-    } else if (Object.entries(data)?.length === 2) {
+    } else if (data && Object.entries(data)?.length === 2) {
       style = `md:w-1/2`;
     } else {
       style = `md:w-1/3`;
@@ -46,17 +45,26 @@ const Dashboard = () => {
               <div className="flex w-full flex-col justify-between md:flex-row">
                 {data?.github && (
                   <div className={`my-4 md:m-2 ${blockWidthStyle()}`}>
-                    <Github githubData={data?.github}></Github>
+                    <AccountCard
+                      data={{ ...{ Account: "Github" }, ...data?.github }}
+                    ></AccountCard>
                   </div>
                 )}
                 {data?.gitlab && (
                   <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
-                    <Gitlab gitlabData={data?.gitlab}></Gitlab>
+                    <AccountCard
+                      data={{ ...{ Account: "Gitlab" }, ...data?.gitlab }}
+                    ></AccountCard>
                   </div>
                 )}
                 {data?.twitter && (
                   <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
-                    <Twitter twitterData={data?.twitter}></Twitter>
+                    <AccountCard
+                      data={{
+                        ...{ Account: "Twitter" },
+                        ...restTwitter,
+                      }}
+                    ></AccountCard>
                   </div>
                 )}
               </div>
@@ -79,7 +87,7 @@ const Dashboard = () => {
           }
         ></DashboardLayout>
       )}
-      {!data && error.response.status === 429 && (
+      {!data && error?.response?.status === 429 && (
         <DashboardLayout
           header={
             <Header

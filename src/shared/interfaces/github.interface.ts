@@ -1,8 +1,8 @@
 export interface IGithubResponse {
-  github: GithubAccount;
+  github: Github;
 }
 
-export interface GithubAccount {
+export interface Github {
   login: string;
   followers: number;
   public_repos: number;

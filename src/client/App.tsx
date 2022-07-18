@@ -4,6 +4,7 @@ import {
   Router,
   Outlet,
   Navigate,
+  Route,
 } from "@tanstack/react-location";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -13,8 +14,9 @@ import Loading from "./components/Loading/Loading";
 const Home = React.lazy(() => import("./pages/home"));
 const Dashboard = React.lazy(() => import("./pages/dashboard"));
 import { ThemeContextProvider } from "./contexts/ThemeContext";
+import { LocationGenerics } from "./interfaces/location.interface";
 
-const location = new ReactLocation();
+const location = new ReactLocation<LocationGenerics>();
 const queryClient = new QueryClient();
 
 const App = () => {

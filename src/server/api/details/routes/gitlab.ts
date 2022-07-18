@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { IGitlabResponse } from "../../interfaces/gitlab.interface";
+import { IGitlabResponse } from "../../../../shared/interfaces/gitlab.interface";
 /**
  * Aggregates fetches from multiple API endpoints about
  * a user's details.
