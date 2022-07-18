@@ -16,6 +16,6 @@
     "strict": true,
     "lib": ["es7"]
   },
-  "include": ["src/server"],
+  "include": ["src/server", "src/shared"],
   "exclude": ["src/client", "node_modules"]
 }

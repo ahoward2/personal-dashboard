@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { IGithubResponse } from "../../interfaces/github.interface";
+import { IGithubResponse } from "../../../../shared/interfaces/github.interface";
 
 /**
  * Aggregates fetches from multiple API endpoints about

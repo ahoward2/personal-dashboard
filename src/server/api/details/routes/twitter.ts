@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { ITwitterResponse } from "../../interfaces/twitter.interface";
+import { ITwitterResponse } from "../../../../shared/interfaces/twitter.interface";
 
 /**
  * Aggregates fetches from multiple API endpoints about

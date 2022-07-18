@@ -10,12 +10,12 @@ import { ScheduleModule } from "@nestjs/schedule";
   imports: [
     ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "..", "..", "dist", "client"),
+      rootPath: join(__dirname, "..", "..", "..", "dist", "client"),
       exclude: ["api*"],
     }),
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 10,
+      limit: 2,
     }),
     ApiModule,
   ],

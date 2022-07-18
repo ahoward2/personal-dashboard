@@ -13,7 +13,7 @@
     "start:server": "nest start",
     "dev:server": "nest start --watch",
     "debug:server": "nest start --debug --watch",
-    "start:prodserver": "node dist/server/main"
+    "start:prodserver": "node dist/server/server/main"
   },
   "devDependencies": {
     "@babel/core": "7.15.5",
