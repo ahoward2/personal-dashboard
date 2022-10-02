@@ -29,7 +29,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-slate-900">
       {!isLoading && data && (
         <DashboardLayout
           header={
