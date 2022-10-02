@@ -5,6 +5,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "dev": "yarn prebuild && concurrently -k \"yarn build:client:dev\" \"yarn dev:server\"",
+    "dev:mock": "MOCK_ENV=on yarn dev",
     "prebuild": "rimraf dist",
     "build": "yarn build:client && yarn build:server",
     "build:client:dev": "webpack --mode development  --config webpack.config.client.js --watch",
@@ -39,6 +40,7 @@
     "esbuild-loader": "^2.19.0",
     "html-webpack-plugin": "5.3.2",
     "jest": "^27.2.5",
+    "msw": "^0.47.3",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",
     "prettier": "^2.7.1",
@@ -72,6 +74,7 @@
     "chart.js": "^3.8.0",
     "compression": "^1.7.4",
     "dotenv": "^16.0.1",
+    "process": "^0.11.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
@@ -81,6 +84,10 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "util": "^0.12.4",
     "yup": "^0.32.11"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
