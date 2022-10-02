@@ -20,7 +20,7 @@ const ThemeToggler = () => {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="text-indigo-700 dark:text-rose-300"
+        className="text-black dark:text-white"
       >
         {mounted && theme === "dark" ? (
           <path

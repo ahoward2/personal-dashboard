@@ -21,7 +21,6 @@ const AccountCard = ({ data }: CardProps) => {
               </p>
             </li>
           ))}
-        ;
       </ul>
     </div>
   );
