@@ -7,7 +7,7 @@ const Clipper = () => {
       onClick={async () => {
         await copyToClipboard(window.location.toString());
       }}
-      className="py-1 text-indigo-700 dark:text-rose-300"
+      className="py-1 text-black dark:text-white"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

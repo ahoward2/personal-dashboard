@@ -11,9 +11,7 @@ export const Message = ({ title, content }: MessageProps) => {
       <p className="font-extrabold text-indigo-700 dark:text-rose-300">
         {title}
       </p>
-      <p className="font-extralight text-indigo-700 dark:text-rose-300">
-        {content}
-      </p>
+      <p className="font-extralight text-black dark:text-white">{content}</p>
     </div>
   );
 };
