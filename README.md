@@ -4,7 +4,7 @@
 > user accounts. Aggregate data on the Node server from vendor API's and fit the
 > REST API to the frontend client. The Node server also serves the client.
 
-### The Server
+## The Server
 
 - Backend for frontend server built with [Nest.js](https://nestjs.com/).
 - A functional approach to Nest with simple route handler functions instead of
@@ -20,7 +20,7 @@
   - Last 90 tweets twitter stats.
   - Last 30 tweets timeline data.
 
-### The Client
+## The Client
 
 - User interface built with [React](https://reactjs.org/).
   - Custom Webpack configuration with
@@ -40,12 +40,12 @@
 - Data visualization & charting with
   [chartjs](https://www.chartjs.org/docs/latest/).
 
-### Deployment
+## Deployment
 
 - Deployed as an edge container with [fly.io](https://fly.io/).
   - 1 region (Miami Florida, US).
 
-### Considerations
+## Considerations
 
 - Caching on the server in-memory could eventually result in needing to increase
   the memory capacity of the server. Redis or a CDN could probably do a better
@@ -60,3 +60,9 @@
   little overkill for this. The size of the docker image could probably be
   smaller and the server could be faster using something like
   [fastify](https://www.fastify.io/).
+
+## Local Development
+
+- We are using [MSW](https://mswjs.io/) during development to intercept API
+  requests from the browser to the server so as to not hit live upstream APIs at
+  all. MSW is great!

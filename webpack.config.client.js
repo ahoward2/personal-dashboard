@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const { ESBuildMinifyPlugin } = require("esbuild-loader");
+const { ProvidePlugin, DefinePlugin } = require("webpack");
+
+const MOCK_ENV = process.env.MOCK_ENV || "off";
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/client/index.js"),
@@ -19,6 +22,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    fallback: {
+      util: require.resolve("util/"),
+    },
   },
   module: {
     rules: [
@@ -42,15 +48,15 @@ module.exports = {
         test: /\.js$/,
         loader: "esbuild-loader",
         options: {
-          loader: "jsx", // Remove this if you're not using JSX
-          target: "es2015", // Syntax to compile to (see options below for possible values)
+          loader: "jsx",
+          target: "es2015",
         },
       },
       {
         test: /\.tsx?$/,
         loader: "esbuild-loader",
         options: {
-          loader: "tsx", // Or 'ts' if you don't need tsx
+          loader: "tsx",
           target: "es2015",
           tsconfigRaw: require("./tsconfig.client.json"),
         },
@@ -60,7 +66,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new ESBuildMinifyPlugin({
-        target: "es2015", // Syntax to compile to (see options below for possible values)
+        target: "es2015",
       }),
     ],
   },
@@ -68,6 +74,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       favicon: "./public/favicon.ico",
+    }),
+    new ProvidePlugin({
+      process: "process/browser",
+    }),
+    new DefinePlugin({
+      "process.env.MOCK_ENV": JSON.stringify(MOCK_ENV),
     }),
   ],
 };
