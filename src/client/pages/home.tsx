@@ -15,7 +15,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-slate-900">
       <HomeLayout
         header={
           <Header
@@ -27,7 +27,7 @@ const Home = () => {
         mainPanel={
           <div className="flex w-screen flex-col">
             <div className="p-2 md:p-4">
-              <h1 className="text-8xl bg-gradient-to-r from-fuchsia-700 to-indigo-700 bg-clip-text text-center text-3xl font-black text-transparent dark:from-teal-400 dark:to-rose-300 md:text-6xl">
+              <h1 className="text-8xl via bg-gradient-to-r from-teal-400 to-sky-700 bg-clip-text text-center text-3xl font-black text-transparent dark:from-teal-400 dark:to-sky-700 md:text-6xl">
                 Search Your Accounts
               </h1>
             </div>
@@ -36,7 +36,7 @@ const Home = () => {
               <Message
                 title={"Important ‼️"}
                 content={
-                  "We do not use or save any of your personal information. Data is temporarily cached purely for the sake of performance."
+                  "We do not use or save any of your personal information. Data is temporarily cached to avoid overloading upstream APIs."
                 }
               ></Message>
             </div>

@@ -8,15 +8,15 @@ type CardProps = {
 
 const AccountCard = ({ data }: CardProps) => {
   return (
-    <div className="h-full w-full rounded border-2 border-indigo-700 bg-white p-2 dark:border-teal-300 dark:bg-black md:p-4">
+    <div className="h-full w-full rounded border-none bg-gray-300 p-2 dark:border-teal-300 dark:bg-gray-700 md:p-4">
       <ul>
         {data &&
           Object.entries(data).map(([key, value]) => (
             <li className="flex justify-between" key={key}>
-              <p className="text-left text-indigo-700 dark:text-teal-300">
+              <p className="text-left font-extrabold text-black dark:text-white">
                 {key}
               </p>
-              <p className="text-right text-fuchsia-700 dark:text-rose-300">
+              <p className="font-extrathin text-right text-gray-700 dark:text-gray-400">
                 {value}
               </p>
             </li>
