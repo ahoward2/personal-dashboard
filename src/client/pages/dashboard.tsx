@@ -46,14 +46,16 @@ const Dashboard = () => {
                 {data?.github && (
                   <div className={`my-4 md:m-2 ${blockWidthStyle()}`}>
                     <AccountCard
-                      data={{ ...{ Account: "Github" }, ...data?.github }}
+                      data={{ ...data?.github }}
+                      title="Github"
                     ></AccountCard>
                   </div>
                 )}
                 {data?.gitlab && (
                   <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
                     <AccountCard
-                      data={{ ...{ Account: "Gitlab" }, ...data?.gitlab }}
+                      data={{ ...data?.gitlab }}
+                      title="Gitlab"
                     ></AccountCard>
                   </div>
                 )}
@@ -61,9 +63,9 @@ const Dashboard = () => {
                   <div className={`mb-4 md:m-2 ${blockWidthStyle()}`}>
                     <AccountCard
                       data={{
-                        ...{ Account: "Twitter" },
                         ...restTwitter,
                       }}
+                      title="Twitter"
                     ></AccountCard>
                   </div>
                 )}
