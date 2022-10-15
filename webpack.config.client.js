@@ -4,6 +4,7 @@ const { ESBuildMinifyPlugin } = require("esbuild-loader");
 const { ProvidePlugin, DefinePlugin } = require("webpack");
 
 const MOCK_ENV = process.env.MOCK_ENV || "off";
+const PUBLIC_GA_ID = process.env.PUBLIC_GA_ID || "";
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/client/index.js"),
@@ -80,6 +81,7 @@ module.exports = {
     }),
     new DefinePlugin({
       "process.env.MOCK_ENV": JSON.stringify(MOCK_ENV),
+      "process.env.PUBLIC_GA_ID": JSON.stringify(PUBLIC_GA_ID),
     }),
   ],
 };
