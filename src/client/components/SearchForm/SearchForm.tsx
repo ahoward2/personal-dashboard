@@ -3,6 +3,8 @@ import { useNavigate } from "@tanstack/react-location";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { searchEvent } from "../../lib/analytics/gtag";
+
 interface SearchFromInputs {
   github: string;
   gitlab: string;
@@ -63,6 +65,8 @@ const SearchForm = () => {
       navigateString += `twitter=${twitter}`;
       accountCount += 1;
     }
+
+    searchEvent({ term: navigateString });
 
     navigate({
       to: navigateString,

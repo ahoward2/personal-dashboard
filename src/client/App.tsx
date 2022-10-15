@@ -1,10 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   ReactLocation,
   Router,
   Outlet,
   Navigate,
-  Route,
 } from "@tanstack/react-location";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
